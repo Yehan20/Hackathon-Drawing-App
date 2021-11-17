@@ -1,1 +1,1 @@
-# Hackerthron-Drawing-App
+# Hackerthron-Drawing-App | Mintbean.io Junior Developer Hackathon
