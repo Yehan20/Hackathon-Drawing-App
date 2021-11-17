@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+        <link rel="stylesheet" type="text/css" href="./css/draw.css" />
+        <title>Draw</title>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row d-none d-sm-block draw-row">
+                <ul class="nav col draw-column flex-column">
+                    <li class="nav-item d-sm-none">
+                        <button disabled>
+                            <img src="" alt="" />
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button>
+                            <img src="images/pencil.svg" alt="pencil icon" />
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button>
+                            <img src="images/square.svg" alt="pencil icon" />
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button>
+                            <img src="images/circle.svg" alt="pencil icon" />
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <button>
+                            <img src="images/line.svg" alt="pencil icon" />
+                        </button>
+                    </li>
+                    <li class="nav-item">
+                        <input type="color" />
+                    </li>
+                </ul>
+            </div>
+            <canvas></canvas>
+        </div>
+        <button id="toggle-btn" class="d-sm-none">
+            <img id="toggle-btn-img" src="images/menu.svg" alt="exit icon" />
+        </button>
+        <canvas></canvas>
+    </body>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"
+    ></script>
+    <script src="./scripts/draw.js"></script>
+</html>
