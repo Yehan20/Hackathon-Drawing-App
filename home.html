@@ -4,46 +4,155 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
-            integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
-            crossorigin="anonymous"
-        />
-        <title>Document</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+        integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Home</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <div class="container-fluid">
-                <a class="navbar-brand" href="#">Navbar</a>
-                <button
-                    class="navbar-toggler"
-                    type="button"
-                    data-bs-toggle="collapse"
-                    data-bs-target="#navbarNav"
-                    aria-controls="navbarNav"
-                    aria-expanded="false"
-                    aria-label="Toggle navigation"
+        <nav class="navbar navbar-expand-lg  sticky-top py-3 navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand h3 m-0" href="#">Name</a>
+                <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#toggleNav" 
                 >
-                    <span class="navbar-toggler-icon"></span>
+                <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav">
+                <div class="collapse navbar-collapse" id="toggleNav">
+                    <ul class="navbar-nav ms-auto mt-3 mt-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Home</a>
+                            <a class="nav-link lead" href="#">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Features Edited by me</a>
+                            <a class="nav-link lead" href="#">Contact</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Pricing</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                            <a class="nav-link lead" href="#">Drwaing App</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <!-- show case section start -->
+        <section class="showcase py-3  text-dark">
+            <div class="container">
+               
+               <div class="d-flex align-items-center g-4 mt-5 flex-column flex-md-row">
+                   <div class="col align-self-center me-3 text-center text-md-start">
+                    <h2 class="text mb-4">Drawing App</h2>
+                    <p>
+                       Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod minima enim amet magni aperiam vitae, ab, error at voluptates, iste magnam debitis! Quidem voluptatum recusandae velit officia 
+                    </p>
+                    <a href="" class="btn btn-success btn-lg">Start Drawing</a>
+                   </div>
+                   <img src="https://static.wixstatic.com/media/0f4101_97a560fafd8945d7b3a8d6a312c13dce~mv2.gif" alt="" class="img-fluid w-100 w-md-50 col mt-5">
+               </div>
+            </div>
+        </section>
+
+        <!-- services section -->
+        <section class="services py-5 mt-4 bg-light">
+            <div class="container">
+               <h1 class="text-center">What You can do</h1>
+               <div class="row mt-5">
+                   <div class="col-12 col-md-4 ">
+                       <div class="card mb-3 py-2 align-items-center bg-white">
+                        <h3 class="text-center card-title mb-3">Sketching</h3>
+                           <img src="https://openbox9.com/site/wp-content/uploads/2015/08/1-sketching.png" class="img-fluid card-img-top w-50"  style="height:150px;"  alt="">
+                           <div class="card-body">
+                             
+                              <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat autem nesciunt qui voluptatum cupiditate doloribus a
+                              </p>
+                           </div>
+                       </div>
+                   </div>
+                  
+                   <div class="col-12 col-md-4  ">
+                    <div class="card mb-3 py-2 align-items-center">
+                     <h3 class="text-center card-title mb-3">Painting</h3>
+                        <img src="https://www.pinclipart.com/picdir/big/38-386439_paintbrush-svg-png-free-download-onlinewebfonts-com-paintbrush.png" class="img-fluid card-img-top w-50" style="height:150px;"  alt="">
+                        <div class="card-body">
+                          
+                           <p>
+                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat autem nesciunt qui voluptatum cupiditate doloribus a
+                           </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4">
+                    <div class="card mb-3 py-2 align-items-center">
+                     <h3 class="text-center card-title mb-3">Draw Shapes</h3>
+                        <img src="https://www.clipartmax.com/png/full/285-2857761_work-on-different-projects-circle-square-triangle-icon.png" class="img-fluid card-img-top w-50" style="height:150px;"   alt="">
+                        <div class="card-body">
+                          
+                           <p>
+                               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat autem nesciunt qui voluptatum cupiditate doloribus a
+                           </p>
+                        </div>
+                    </div>
+                </div>
+               </div>
+              </div>
+        </section>
+
+        <!-- contact section -->
+        <section class="bg-white py-5 my-3">
+            <div class="container">
+                <h1 class="text-center mb-5">Contact Us</h1>
+                <div class="input-group mt-3 mx-auto max-width">
+                   
+                    <button class="btn bg-warning btn-lg w-100" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#question">Send Question</button>
+                  </div>
+                  
+            </div>
+        </section>
+
+        <!-- footer -->
+        <footer class="bg-secondary py-5 position-relative" id="footer">
+            <div class="container">
+                <p class="lead text-center text-white">Copyright &copy; 2021</p>
+                <p class="lead text-center fw-bold text-white">Made by Names</p>
+                <a href="" class="position-absolute bottom-0 end-0 p-5">
+                    <i class="bi bi-arrow-up-circle text-white h1"></i>
+                </a>
+            </div>
+        </footer>
+
+        <!-- model here -->
+        <div class="modal fade" id="question" tabindex="-1" aria-labelledby="question" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Ask a Question</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  <p>Fill the Form</p>
+                      <div class="mb-3">
+                          <label  class="form-label " for="name">Name</label>
+                          <input type="text" class="form-control" id="name" placeholder="name">
+                      </div>
+                          <div class="mb-3">
+                          <label  class="form-label " for="email">Email</label>
+                          <input type="text" class="form-control" id="email" placeholder="email">
+                      </div>
+                      <div class="mb-3">
+                          <label for="question" class="form-label">Question</label>
+                          <textarea name="" id="question" class="form-control"  cols="30" rows="5" style="resize:none;"></textarea>
+                      </div>
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success">Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     </body>
+
 </html>
