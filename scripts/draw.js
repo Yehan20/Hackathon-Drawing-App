@@ -5,6 +5,7 @@ const penBtn = document.getElementById("pen-btn");
 const toggleBtnImg = document.getElementById("toggle-btn-img");
 const navbar = document.querySelector(".draw-row");
 const colorInput = document.getElementById("color-input");
+const strokeSelectors = [...document.querySelectorAll("button > svg")];
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
@@ -17,7 +18,8 @@ const state = {
     isPainting: false,
     isPenActive: true,
     strokeColor: "black",
-    fillColor: "black"
+    fillColor: "black",
+    width: 1
 };
 
 // Canvas setup and set pen tool as default
@@ -28,7 +30,8 @@ canvas.height = window.innerHeight;
 canvas.addEventListener("mousedown", startPosition);
 canvas.addEventListener("mouseup", finishedPosition);
 canvas.addEventListener("mousemove", draw);
-penBtn.style.border = "3px solid red";
+penBtn.style.border = "2px solid red";
+strokeSelectors[0].parentElement.style.border = "2px solid red";
 
 // Debounce - This will fire resizeCanvas once after 1 second from the last resize event.
 let timer_id = undefined;
@@ -39,7 +42,6 @@ window.addEventListener("resize", function () {
     }
     timer_id = setTimeout(function () {
         timer_id = undefined;
-        console.log("resize");
         resizeCanvas(inMemCanvas, inMemCtx, canvas, ctx);
     }, 1000);
 });
@@ -75,7 +77,7 @@ function finishedPosition() {
 
 function draw() {
     if (!state.isPainting) return;
-    ctx.lineWidth = 10;
+    ctx.lineWidth = state.width;
     ctx.lineCap = "round";
     ctx.strokeStyle = state.strokeColor;
     ctx.lineTo(mouse.x, mouse.y);
@@ -114,4 +116,16 @@ toggleBtn.addEventListener("click", () => {
 colorInput.onchange = () => {
     state.strokeColor = colorInput.value;
     state.fillColor = colorInput.value;
+    strokeSelectors.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
 };
+
+strokeSelectors.forEach((selector) =>
+    selector.parentElement.addEventListener("click", () => {
+        state.width = parseInt(selector.parentElement.dataset.value);
+        selector.parentElement.style.border = "2px solid red";
+
+        let otherSelectors = strokeSelectors.filter((selected) => selected.parentElement.dataset.value !== selector.parentElement.dataset.value);
+
+        otherSelectors.forEach((oSelector) => (oSelector.parentElement.style.border = "none"));
+    })
+);
