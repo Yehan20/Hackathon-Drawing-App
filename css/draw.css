@@ -1,0 +1,78 @@
+/* CSS RESET */
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  box-sizing: border-box;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  max-width: 50px;
+}
+
+.draw-row {
+  width: 50px;
+  height: 100vh;
+  background-color: #c2c2c2;
+  z-index: 1000;
+}
+
+.draw-row .draw-column {
+  list-style: none;
+}
+
+.draw-row .draw-column button {
+  width: 50px;
+  height: 50px;
+  background-color: #e4e4e4;
+}
+
+.draw-row .draw-column button:hover {
+  border: 1px solid black;
+  background-color: rgba(173, 216, 230, 0.5);
+}
+
+.draw-row .draw-column button img {
+  width: 24px;
+  height: 24px;
+  margin: 5px 8px;
+}
+
+.draw-row .draw-column input[type="color" i] {
+  width: 50px !important;
+  height: 50px !important;
+  cursor: crosshair;
+  padding: 0;
+}
+
+.draw-row .draw-column input[type="color" i]:focus {
+  cursor: crosshair;
+}
+
+#toggle-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  z-index: 1;
+}
+
+#toggle-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: -1;
+}
