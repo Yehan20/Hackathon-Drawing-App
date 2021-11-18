@@ -4,18 +4,23 @@ const toggleBtn = document.getElementById("toggle-btn");
 const penBtn = document.getElementById("pen-btn");
 const toggleBtnImg = document.getElementById("toggle-btn-img");
 const navbar = document.querySelector(".draw-row");
+const colorInput = document.getElementById("color-input");
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 let inMemCanvas = document.createElement("canvas");
 let inMemCtx = inMemCanvas.getContext("2d");
 
+// Default state
+
 const state = {
     isPainting: false,
-    isPenActive: true
+    isPenActive: true,
+    strokeColor: "black",
+    fillColor: "black"
 };
 
-// Canvas setup and pen default
+// Canvas setup and set pen tool as default
 
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
@@ -72,6 +77,7 @@ function draw() {
     if (!state.isPainting) return;
     ctx.lineWidth = 10;
     ctx.lineCap = "round";
+    ctx.strokeStyle = state.strokeColor;
     ctx.lineTo(mouse.x, mouse.y);
     ctx.stroke();
     ctx.beginPath();
@@ -104,3 +110,8 @@ toggleBtn.addEventListener("click", () => {
         toggleBtnImg.src = "images/menu.svg";
     }
 });
+
+colorInput.onchange = () => {
+    state.strokeColor = colorInput.value;
+    state.fillColor = colorInput.value;
+};
