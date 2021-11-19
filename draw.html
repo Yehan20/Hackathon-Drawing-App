@@ -17,7 +17,7 @@
     </head>
     <body>
         <div class="menu">
-            <div class="d-none draw-row">
+            <div class="draw-row">
                 <div class="draw-column">
                     <button id="pen-btn">
                         <img src="images/pencil.svg" alt="pencil icon" />
@@ -36,27 +36,27 @@
                     </button>
                     <hr />
                     <button id="stroke-1" data-value="1">
-                        <svg width="50" height="50">
-                            <circle cx="25" cy="25" r="1" />
+                        <svg class="stroke-svg" width="50" height="50">
+                            <circle cx="25" cy="25" r="2" />
                         </svg>
                     </button>
                     <button id="stroke-5" data-value="5">
-                        <svg width="50" height="50">
-                            <circle cx="25" cy="25" r="3" />
+                        <svg class="stroke-svg" width="50" height="50">
+                            <circle cx="25" cy="25" r="4" />
                         </svg>
                     </button>
                     <button id="stroke-10" data-value="10">
-                        <svg width="50" height="50">
+                        <svg class="stroke-svg" width="50" height="50">
                             <circle cx="25" cy="25" r="6" />
                         </svg>
                     </button>
                     <button id="stroke-20" data-value="20">
-                        <svg width="50" height="50">
+                        <svg class="stroke-svg" width="50" height="50">
                             <circle cx="25" cy="25" r="10" />
                         </svg>
                     </button>
                     <button id="stroke-30" data-value="30">
-                        <svg width="50" height="50">
+                        <svg class="stroke-svg" width="50" height="50">
                             <circle cx="25" cy="25" r="16" />
                         </svg>
                     </button>
@@ -67,9 +67,7 @@
                 </div>
             </div>
         </div>
-        <button id="toggle-btn">
-            <img id="toggle-btn-img" src="images/menu.svg" alt="exit icon" />
-        </button>
+        <button id="toggle-btn"></button>
         <canvas id="canvas"></canvas>
     </body>
     <script
