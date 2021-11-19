@@ -17,14 +17,11 @@
 }
 
 .draw-row {
+  position: relative;
   width: 50px;
   height: 100vh;
   background-color: #c2c2c2;
   z-index: 1000;
-}
-
-.draw-row .draw-column {
-  list-style: none;
 }
 
 .draw-row .draw-column button {
@@ -53,6 +50,21 @@
 
 .draw-row .draw-column input[type="color" i]:focus {
   cursor: crosshair;
+}
+
+.draw-row .draw-column #clear-btn {
+  position: absolute;
+  color: yellow;
+  background-color: black;
+  border: none;
+  bottom: 0;
+  left: 0;
+}
+
+.draw-row .draw-column #clear-btn:hover {
+  color: white;
+  background-color: red;
+  border: 1px solid white;
 }
 
 #toggle-btn {

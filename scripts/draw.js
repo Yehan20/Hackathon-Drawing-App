@@ -2,10 +2,12 @@ import { resizeCanvas } from "./resize.js";
 
 const toggleBtn = document.getElementById("toggle-btn");
 const penBtn = document.getElementById("pen-btn");
+const clearBtn = document.getElementById("clear-btn");
 const toggleBtnImg = document.getElementById("toggle-btn-img");
 const navbar = document.querySelector(".draw-row");
 const colorInput = document.getElementById("color-input");
-const strokeSelectors = [...document.querySelectorAll("button > svg")];
+const strokeSelectorsSvgs = [...document.querySelectorAll("button > svg")];
+const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
@@ -31,7 +33,7 @@ canvas.addEventListener("mousedown", startPosition);
 canvas.addEventListener("mouseup", finishedPosition);
 canvas.addEventListener("mousemove", draw);
 penBtn.style.border = "2px solid red";
-strokeSelectors[0].parentElement.style.border = "2px solid red";
+strokeSelectorBtns[0].style.border = "2px solid red";
 
 // Debounce - This will fire resizeCanvas once after 1 second from the last resize event.
 let timer_id = undefined;
@@ -116,16 +118,21 @@ toggleBtn.addEventListener("click", () => {
 colorInput.onchange = () => {
     state.strokeColor = colorInput.value;
     state.fillColor = colorInput.value;
-    strokeSelectors.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
+    strokeSelectorsSvgs.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
 };
 
-strokeSelectors.forEach((selector) =>
-    selector.parentElement.addEventListener("click", () => {
-        state.width = parseInt(selector.parentElement.dataset.value);
-        selector.parentElement.style.border = "2px solid red";
+strokeSelectorBtns.forEach((btn) =>
+    btn.addEventListener("click", () => {
+        state.width = parseInt(btn.dataset.value);
+        btn.style.border = "2px solid red";
 
-        let otherSelectors = strokeSelectors.filter((selected) => selected.parentElement.dataset.value !== selector.parentElement.dataset.value);
+        const otherBtns = strokeSelectorBtns.filter((selectedBtn) => selectedBtn.dataset.value !== btn.dataset.value);
 
-        otherSelectors.forEach((oSelector) => (oSelector.parentElement.style.border = "none"));
+        otherBtns.forEach((btn) => (btn.style.border = "none"));
     })
 );
+
+// Onclick Function to clear canvas board.
+clearBtn.onclick = () => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+};
