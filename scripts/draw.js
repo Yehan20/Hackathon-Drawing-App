@@ -1,26 +1,28 @@
 import { resizeCanvas } from "./resize.js";
+import { menuSvg, exitSvg } from "./svg.js";
 
 const toggleBtn = document.getElementById("toggle-btn");
 const penBtn = document.getElementById("pen-btn");
 const clearBtn = document.getElementById("clear-btn");
-const toggleBtnImg = document.getElementById("toggle-btn-img");
 const navbar = document.querySelector(".draw-row");
 const colorInput = document.getElementById("color-input");
-const strokeSelectorsSvgs = [...document.querySelectorAll("button > svg")];
+const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
-
+toggleBtn.innerHTML = menuSvg;
+const darkTeal = `rgb(0, 212, 169)`;
+//Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
     return new bootstrap.Tooltip(tooltipTriggerEl);
 });
 
+// Initialize Canvas API and memory canvas for responsiveness
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 let inMemCanvas = document.createElement("canvas");
 let inMemCtx = inMemCanvas.getContext("2d");
 
 // Default state
-
 const state = {
     isPainting: false,
     isPenActive: true,
@@ -37,8 +39,8 @@ canvas.height = window.innerHeight;
 canvas.addEventListener("mousedown", startPosition);
 canvas.addEventListener("mouseup", finishedPosition);
 canvas.addEventListener("mousemove", draw);
-penBtn.style.border = "2px solid red";
-strokeSelectorBtns[0].style.border = "2px solid red";
+penBtn.style.border = `2px outset ${darkTeal}`;
+strokeSelectorBtns[0].style.border = `2px outset ${darkTeal}`;
 
 // Debounce - This will fire resizeCanvas once after 1 second from the last resize event.
 let timer_id = undefined;
@@ -110,15 +112,13 @@ penBtn.addEventListener("click", () => {
 });
 
 toggleBtn.addEventListener("click", () => {
-    if (navbar.classList.contains("d-none")) {
-        navbar.classList.remove("d-none");
-        toggleBtn.style.left = "50px";
-        toggleBtnImg.src = "images/exit.svg";
+    if (navbar.classList.contains("open")) {
+        toggleBtn.innerHTML = menuSvg;
     } else {
-        navbar.classList.add("d-none");
-        toggleBtn.style.left = 0;
-        toggleBtnImg.src = "images/menu.svg";
+        toggleBtn.innerHTML = exitSvg;
     }
+    navbar.classList.toggle("open");
+    toggleBtn.classList.toggle("open");
 });
 
 colorInput.onchange = () => {
@@ -132,7 +132,7 @@ colorInput.onchange = () => {
 strokeSelectorBtns.forEach((btn) =>
     btn.addEventListener("click", () => {
         state.width = parseInt(btn.dataset.value);
-        btn.style.border = "2px solid red";
+        btn.style.border = `2px outset ${darkTeal}`;
 
         const otherBtns = strokeSelectorBtns.filter((selectedBtn) => selectedBtn.dataset.value !== btn.dataset.value);
 
