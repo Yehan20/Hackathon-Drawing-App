@@ -9,6 +9,11 @@ const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.querySelectorAll("button > svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 
+let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 let inMemCanvas = document.createElement("canvas");
@@ -87,6 +92,7 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
 }
+
 penBtn.addEventListener("click", () => {
     if (!state.isPenActive) {
         state.isPenActive = true;
@@ -121,6 +127,8 @@ colorInput.onchange = () => {
     strokeSelectorsSvgs.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
 };
 
+// Onclick function for each stroke Width Selection Btn
+// Also adding active state for chosen btn and removing active state for other stroke btns.
 strokeSelectorBtns.forEach((btn) =>
     btn.addEventListener("click", () => {
         state.width = parseInt(btn.dataset.value);
