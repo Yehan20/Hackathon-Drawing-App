@@ -3,6 +3,7 @@ import { menuSvg, exitSvg } from "./svg.js";
 
 const toggleBtn = document.getElementById("toggle-btn");
 const penBtn = document.getElementById("pen-btn");
+const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 const navbar = document.querySelector(".draw-row");
 const colorInput = document.getElementById("color-input");
@@ -10,6 +11,9 @@ const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 toggleBtn.innerHTML = menuSvg;
 const darkTeal = `rgb(0, 212, 169)`;
+
+const toolBtns = [penBtn, eraserBtn];
+
 //Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
 let tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -26,7 +30,8 @@ let inMemCtx = inMemCanvas.getContext("2d");
 const state = {
     isPainting: false,
     isPenActive: true,
-    strokeColor: "black",
+    isEraserActive: false,
+    strokeColor: colorInput.value,
     fillColor: "black",
     width: 1
 };
@@ -94,20 +99,53 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
 }
+function setInactive(toolBtn) {
+    switch (toolBtn) {
+        case penBtn:
+            toolBtn.style.border = "none";
+            state.isPenActive = false;
+        case eraserBtn:
+            toolBtn.style = "none";
+            state.isEraserActive = false;
+        default:
+            return;
+    }
+}
 
 penBtn.addEventListener("click", () => {
     if (!state.isPenActive) {
         state.isPenActive = true;
+        state.strokeColor = colorInput.value;
+        toolBtns.filter((btn) => btn !== penBtn).forEach((oBtn) => setInactive(oBtn));
         canvas.addEventListener("mousedown", startPosition);
         canvas.addEventListener("mouseup", finishedPosition);
         canvas.addEventListener("mousemove", draw);
-        penBtn.style.border = "3px solid red";
+        penBtn.style.border = `3px outset ${darkTeal}`;
     } else {
         state.isPenActive = false;
         canvas.removeEventListener("mousedown", startPosition);
         canvas.removeEventListener("mouseup", finishedPosition);
         canvas.removeEventListener("mousemove", draw);
         penBtn.style.border = "none";
+    }
+});
+
+eraserBtn.addEventListener("click", () => {
+    if (!state.isEraserActive) {
+        state.isEraserActive = true;
+        toolBtns.filter((btn) => btn !== eraserBtn).forEach((oBtn) => setInactive(oBtn));
+        state.strokeColor = "#ffffff";
+        canvas.addEventListener("mousedown", startPosition);
+        canvas.addEventListener("mouseup", finishedPosition);
+        canvas.addEventListener("mousemove", draw);
+        eraserBtn.style.border = `3px outset ${darkTeal}`;
+    } else {
+        state.isEraserActive = false;
+        state.strokeColor = colorInput.value;
+        canvas.removeEventListener("mousedown", startPosition);
+        canvas.removeEventListener("mouseup", finishedPosition);
+        canvas.removeEventListener("mousemove", draw);
+        eraserBtn.style.border = "none";
     }
 });
 
