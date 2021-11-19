@@ -4,6 +4,9 @@ $menu-background: rgb(194, 194, 194);
 $btn-background: rgb(228, 228, 228);
 $btn-hover-background: rgba(173, 216, 230, 0.5);
 $warning: yellow;
+$mintbean-dark-teal: rgb(0, 212, 169);
+$mintbean-mint: rgb(94, 244, 214);
+
 * {
     margin: 0;
     padding: 0;
@@ -17,7 +20,6 @@ $warning: yellow;
     position: absolute;
     top: 0;
     left: 0;
-    max-width: 50px;
 }
 
 .draw-row {
@@ -28,6 +30,7 @@ $warning: yellow;
     z-index: 1000;
 
     .draw-column {
+        overflow: hidden;
         button {
             width: 50px;
             height: 50px;
@@ -54,7 +57,7 @@ $warning: yellow;
         }
 
         #clear-btn {
-            position: absolute;
+            position: relative;
             color: $warning;
             background-color: black;
             border: none;

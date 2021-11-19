@@ -13,7 +13,6 @@
   position: absolute;
   top: 0;
   left: 0;
-  max-width: 50px;
 }
 
 .draw-row {
@@ -22,6 +21,10 @@
   height: 100vh;
   background-color: #c2c2c2;
   z-index: 1000;
+}
+
+.draw-row .draw-column {
+  overflow: hidden;
 }
 
 .draw-row .draw-column button {
@@ -53,7 +56,7 @@
 }
 
 .draw-row .draw-column #clear-btn {
-  position: absolute;
+  position: relative;
   color: yellow;
   background-color: black;
   border: none;
