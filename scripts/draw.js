@@ -215,11 +215,11 @@ squareBtn.addEventListener('click',()=>{
          function mouseDown(e) {
              console.log('handleMouseDown')
          
-             // save the starting x/y of the rectangle
+             // save the x/y 
              startX = parseInt(e.clientX);
              startY = parseInt(e.clientY);
          
-             // set a flag indicating the drag has begun
+             //  flag indicating the drag has begun
              state.isSqaure = true;
          }
          
@@ -227,7 +227,7 @@ squareBtn.addEventListener('click',()=>{
              console.log('handleMouseUp')
      
          
-             // the drag is over, clear the dragging flag
+             
              state.isSqaure = false;
           
          }
@@ -236,7 +236,7 @@ squareBtn.addEventListener('click',()=>{
              console.log('handleMouseOut')
          
          
-             // the drag is over, clear the dragging flag
+             //  drag over, clear the dragging 
              state.isSqaure = false; 
          }
          
@@ -247,7 +247,7 @@ squareBtn.addEventListener('click',()=>{
              // if we're not dragging, just return
              if (!state.isSqaure)return;
          
-             // get the current mouse position
+             // current mouse position
              let mouseX,mouseY;
              mouseX = parseInt(e.clientX);
              mouseY = parseInt(e.clientY);
@@ -318,23 +318,23 @@ squareBtn.addEventListener('click',()=>{
          ctx.closePath();
          ctx.stroke();
      }
-     function handleMouseDown(e){
+     function mouseDown(e){
      
        startX=parseInt(e.clientX-offsetX);
        startY=parseInt(e.clientY-offsetY);
        isDown=true;
      }
-     function handleMouseUp(e){
+     function mouseUp(e){
        if(!isDown){ return; }
       
        isDown=false;
      }
-     function handleMouseOut(e){
+     function mouseOut(e){
        if(!isDown){ return; }
       
        isDown=false;
      }
-     function handleMouseMove(e){
+     function mouseMove(e){
        if(!isDown){ return; }
        ctx.strokeStyle = state.strokeColor;
        ctx.lineWidth = state.width;
@@ -343,8 +343,8 @@ squareBtn.addEventListener('click',()=>{
        mouseY=parseInt(e.clientY-offsetY);
        drawOval(mouseX,mouseY);
      }
-     canvas.addEventListener('mousedown',handleMouseDown);
-     canvas.addEventListener('mousemove',handleMouseMove);
-     canvas.addEventListener('mouseup',handleMouseUp);
-     canvas.addEventListener('mouseout',handleMouseOut);
+     canvas.addEventListener('mousedown',mouseDown);
+     canvas.addEventListener('mousemove',mouseMove);
+     canvas.addEventListener('mouseup',mouseUp);
+     canvas.addEventListener('mouseout',mouseOut);
  });
