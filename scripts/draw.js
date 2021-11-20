@@ -7,14 +7,14 @@ const circleBtn = document.getElementById("circle-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 const navbar = document.querySelector(".draw-row");
-const squareBtn=document.getElementById('square-btn');
+const squareBtn = document.getElementById("square-btn");
 const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 
 toggleBtn.innerHTML = menuSvg;
 
-const toolBtns = [penBtn, circleBtn, eraserBtn];
+const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn];
 
 //Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -34,7 +34,7 @@ const state = {
     isPenActive: true,
     isCircleActive: false,
     isEraserActive: false,
-    isSqaure:false,
+    isSquareActive: false,
     strokeColor: colorInput.value,
     fillColor: "black",
     width: 1
@@ -124,6 +124,17 @@ function setInactive(toolBtn) {
             canvas.removeEventListener("mousedown", startPosition);
             canvas.removeEventListener("mouseup", finishedPosition);
             canvas.removeEventListener("mousemove", draw);
+        case squareBtn:
+            toolBtn.style.border = "none";
+            state.isSquareActive = false;
+            canvas.removeEventListener("mousedown", mouseDown);
+            canvas.removeEventListener("mousemove", mouseMove);
+            canvas.removeEventListener("mouseup", mouseUp);
+        case circleBtn:
+            toolBtn.style.border = "none";
+            state.isCircleActive = false;
+            canvas.removeEventListener("mousedown", mouseDownC);
+            canvas.removeEventListener("mouseup", mouseUpC);
         default:
             return;
     }
@@ -131,8 +142,6 @@ function setInactive(toolBtn) {
 
 penBtn.addEventListener("click", () => {
     state.strokeColor = colorInput.value;
-    squareBtn.style.border="none";
-    circleBtn.style.border='none';
     toolBtns.filter((btn) => btn !== penBtn).forEach((oBtn) => setInactive(oBtn));
     canvas.addEventListener("mousedown", startPosition);
     canvas.addEventListener("mouseup", finishedPosition);
@@ -174,7 +183,8 @@ colorInput.onchange = () => {
 strokeSelectorBtns.forEach((btn) =>
     btn.addEventListener("click", () => {
         state.width = parseInt(btn.dataset.value);
-        btn.style.border = `3px outset rgb(0, 212, 169)`;
+        ctx.lineWidth = state.width;
+        btn.style.border = activeState;
 
         const otherBtns = strokeSelectorBtns.filter((selectedBtn) => selectedBtn.dataset.value !== btn.dataset.value);
 
@@ -187,164 +197,98 @@ clearBtn.onclick = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
+// these vars will hold the starting mouse position
+let startX;
+let startY;
+let width = 0;
+let height = 0;
+
+function mouseDown() {
+    // save the x/y
+    startX = mouse.x;
+    startY = mouse.y;
+
+    //  flag indicating the drag has begun
+    state.isSquareActive = true;
+}
+
+function mouseUp() {
+    // When click is released, create rectangle drawing.
+    ctx.strokeRect(startX, startY, width, height);
+    state.isSquareActive = false;
+    // Reset rectangle parameters to prevent a duplicate of rectangle on click
+    startX = 0;
+    startY = 0;
+    width = 0;
+    height = 0;
+}
+function mouseOut() {
+    //  When mouse leaves window, prevents drawing of a rectangle.
+    state.isSquareActive = false;
+}
+
+function mouseMove() {
+    // if we're not clicking down to draw a square, return to prevent fire of the below code.
+    if (!state.isSquareActive) return;
+
+    // current mouse position
+    let mouseXEndPos = mouse.x;
+    let mouseYEndPos = mouse.y;
+
+    ctx.strokeStyle = state.strokeColor;
+    ctx.lineWidth = state.width;
+
+    // calculate the rectangle width/height based
+    // on starting vs current mouse position
+    width = mouseXEndPos - startX;
+    height = mouseYEndPos - startY;
+}
 
 // circle and rect
-squareBtn.addEventListener('click',()=>{
-    state.strokeColor = colorInput.value;
+squareBtn.addEventListener("click", () => {
+    circleBtn.style.border = "none";
+    toolBtns.filter((btn) => btn !== squareBtn).forEach((oBtn) => setInactive(oBtn));
+    squareBtn.style.border = activeState;
+    state.isPainting = false;
+    // let canvasOffset = canvas.getBoundingClientRect();
+
+    // this flage is true when the user is dragging the mouse
+    state.isSquareActive = false;
+
+    // mouse movement event listeners
+    canvas.addEventListener("mousedown", mouseDown);
+    canvas.addEventListener("mousemove", mouseMove);
+    canvas.addEventListener("mouseup", mouseUp);
+});
+
+// circle
+
+function drawEllipse(x, y) {
+    if (!state.isCircleActive) {
+        return;
+    }
+    ctx.beginPath();
+    ctx.moveTo(startX, startY + (y - startY) / 2);
+    ctx.bezierCurveTo(startX, startY, x, startY, x, startY + (y - startY) / 2);
+    ctx.bezierCurveTo(x, y, startX, y, startX, startY + (y - startY) / 2);
+    ctx.closePath();
+    ctx.stroke();
+}
+function mouseDownC() {
+    startX = mouse.x;
+    startY = mouse.y;
+}
+function mouseUpC() {
+    drawEllipse(mouse.x, mouse.y);
+    ctx.beginPath();
+}
+
+circleBtn.addEventListener("click", () => {
+    toolBtns.filter((btn) => btn !== circleBtn).forEach((oBtn) => setInactive(oBtn));
+    circleBtn.style.border = activeState;
+    ctx.strokeStyle = state.strokeColor;
     ctx.lineWidth = state.width;
-    circleBtn.style.border='none';
-     if(!state.isSqaure){
-         toolBtns.filter((btn) => btn !== squareBtn).forEach((oBtn) => setInactive(oBtn));
-         squareBtn.style.border = `3px outset teal`;
-         state.isPainting=false;
-         state.isEraserActive=false;
-         let canvasOffset = canvas.getBoundingClientRect();
-         
-         
-         // this flage is true when the user is dragging the mouse
-         state.isSqaure = false;
-         
-         // these vars will hold the starting mouse position
-         let startX;
-         let startY;
-         let x1 = null
-         let x2 = null
-         let y1 = null
-         let y2 = null
-         
-         function mouseDown(e) {
-             console.log('handleMouseDown')
-         
-             // save the x/y 
-             startX = parseInt(e.clientX);
-             startY = parseInt(e.clientY);
-         
-             //  flag indicating the drag has begun
-             state.isSqaure = true;
-         }
-         
-         function mouseUp(e) {
-             console.log('handleMouseUp')
-     
-         
-             
-             state.isSqaure = false;
-          
-         }
-         
-         function mouseOut(e) {
-             console.log('handleMouseOut')
-         
-         
-             //  drag over, clear the dragging 
-             state.isSqaure = false; 
-         }
-         
-         function mouseMove(e) {
-             console.log('handleMouseMove')
-     
-         
-             // if we're not dragging, just return
-             if (!state.isSqaure)return;
-         
-             // current mouse position
-             let mouseX,mouseY;
-             mouseX = parseInt(e.clientX);
-             mouseY = parseInt(e.clientY);
-             
-             ctx.strokeStyle = state.strokeColor;
-             ctx.lineWidth = state.width;
-         
-             // Put your mousemove stuff here
-         
-             // clear the canvas
-             ctx.clearRect(0, 0, canvas.width, canvas.height);
-         
-             // calculate the rectangle width/height based
-             // on starting vs current mouse position
-             let width = mouseX - startX;
-             let height = mouseY - startY;
-         
-             // draw a new rect from the start position 
-             // to the current mouse position
-             ctx.strokeRect(startX, startY, width, height);
-             x1 = startX
-             y1 = startY
-             x2 = width
-             y2 = height
-         
-         }
-         
-         // mouse movement event listeners
-         canvas.addEventListener('mousedown', mouseDown);
-         canvas.addEventListener('mousemove',mouseMove);
-         canvas.addEventListener('mouseup',mouseUp);
-         canvas.addEventListener('mouseout',mouseOut );
-         }
-         else{
-             state.isSqaure=false;
-             squareBtn.style.border='none';
-             console.log('none');
-         }
-  
-  
-    
- });
- 
- 
- // circle
- circleBtn.addEventListener('click',()=>{
-     
-   
-     squareBtn.style.border='none';
-     state.isPainting=false;
-     state.isSqaure=false;
-     let canvasOffset = canvas.getBoundingClientRect();
-     let offsetX=canvasOffset.left;
-     let offsetY=canvasOffset.top;
-     let startX, startY, mouseX, mouseY;
-     let isDown=false;
-     if (!isDown) {
-         isDown = true;
-         toolBtns.filter((btn) => btn !== circleBtn).forEach((oBtn) => setInactive(oBtn));
-         circleBtn.style.border = `3px outset teal`;
-     }
-     function drawOval(x,y){
-         ctx.clearRect(0,0,canvas.width,canvas.height);
-         ctx.beginPath();
-         ctx.moveTo(startX, startY + (y-startY)/2);
-         ctx.bezierCurveTo(startX, startY, x, startY, x, startY + (y-startY)/2);
-         ctx.bezierCurveTo(x, y, startX, y, startX, startY + (y-startY)/2);
-         ctx.closePath();
-         ctx.stroke();
-     }
-     function mouseDown(e){
-     
-       startX=parseInt(e.clientX-offsetX);
-       startY=parseInt(e.clientY-offsetY);
-       isDown=true;
-     }
-     function mouseUp(e){
-       if(!isDown){ return; }
-      
-       isDown=false;
-     }
-     function mouseOut(e){
-       if(!isDown){ return; }
-      
-       isDown=false;
-     }
-     function mouseMove(e){
-       if(!isDown){ return; }
-       ctx.strokeStyle = state.strokeColor;
-       ctx.lineWidth = state.width;
-   
-       mouseX=parseInt(e.clientX-offsetX);
-       mouseY=parseInt(e.clientY-offsetY);
-       drawOval(mouseX,mouseY);
-     }
-     canvas.addEventListener('mousedown',mouseDown);
-     canvas.addEventListener('mousemove',mouseMove);
-     canvas.addEventListener('mouseup',mouseUp);
-     canvas.addEventListener('mouseout',mouseOut);
- });
+    state.isCircleActive = true;
+    canvas.addEventListener("mousedown", mouseDownC);
+    canvas.addEventListener("mouseup", mouseUpC);
+});
