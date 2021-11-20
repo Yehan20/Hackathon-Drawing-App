@@ -1,18 +1,19 @@
 import { resizeCanvas } from "./resize.js";
-import { menuSvg, exitSvg } from "./svg.js";
+import { menuSvg, exitSvg, activeState } from "./styles.js";
 
 const toggleBtn = document.getElementById("toggle-btn");
 const penBtn = document.getElementById("pen-btn");
+const circleBtn = document.getElementById("circle-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 const navbar = document.querySelector(".draw-row");
 const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
-toggleBtn.innerHTML = menuSvg;
-const darkTeal = `rgb(0, 212, 169)`;
 
-const toolBtns = [penBtn, eraserBtn];
+toggleBtn.innerHTML = menuSvg;
+
+const toolBtns = [penBtn, circleBtn, eraserBtn];
 
 //Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -30,6 +31,7 @@ let inMemCtx = inMemCanvas.getContext("2d");
 const state = {
     isPainting: false,
     isPenActive: true,
+    isCircleActive: false,
     isEraserActive: false,
     strokeColor: colorInput.value,
     fillColor: "black",
@@ -41,11 +43,15 @@ const state = {
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
+// Set menu button to show the menu svg.
+toggleBtn.innerHTML = menuSvg;
+
+//Initialize drawing feature and apply active state CSS to pen button and current stroke size.
 canvas.addEventListener("mousedown", startPosition);
 canvas.addEventListener("mouseup", finishedPosition);
 canvas.addEventListener("mousemove", draw);
-penBtn.style.border = `2px outset ${darkTeal}`;
-strokeSelectorBtns[0].style.border = `2px outset ${darkTeal}`;
+penBtn.style.border = `3px outset rgb(0, 212, 169)`;
+strokeSelectorBtns[0].style.border = `3px outset rgb(0, 212, 169)`;
 
 // Debounce - This will fire resizeCanvas once after 1 second from the last resize event.
 let timer_id = undefined;
@@ -60,7 +66,7 @@ window.addEventListener("resize", function () {
     }, 1000);
 });
 
-// Update mouse object {x,y} position everytime it moves relative to canvas size/positioning. (Including resize)
+// Update mouse object {x,y} position everytime it moves relative to canvas size/positioning. Prevents offset from cursor after resizing the window.
 let mouse = { x: 0, y: 0 };
 window.addEventListener("mousemove", function (evt) {
     var mousePos = getMousePos(canvas, evt);
@@ -76,7 +82,7 @@ function getMousePos(canvas, event) {
     };
 }
 
-// Draw - Pencil/Pen function
+// Draw - Pencil/Pen & Eraser function
 function startPosition() {
     state.isPainting = true;
     // This allows drawing of a dot.
@@ -99,54 +105,48 @@ function draw() {
     ctx.beginPath();
     ctx.moveTo(mouse.x, mouse.y);
 }
+
+// Function to set tool button state inactive and remove their corresponding event listeners
 function setInactive(toolBtn) {
     switch (toolBtn) {
         case penBtn:
             toolBtn.style.border = "none";
             state.isPenActive = false;
+            canvas.removeEventListener("mousedown", startPosition);
+            canvas.removeEventListener("mouseup", finishedPosition);
+            canvas.removeEventListener("mousemove", draw);
         case eraserBtn:
-            toolBtn.style = "none";
+            toolBtn.style.border = "none";
             state.isEraserActive = false;
+            state.strokeColor = colorInput.value;
+            canvas.removeEventListener("mousedown", startPosition);
+            canvas.removeEventListener("mouseup", finishedPosition);
+            canvas.removeEventListener("mousemove", draw);
         default:
             return;
     }
 }
 
 penBtn.addEventListener("click", () => {
-    if (!state.isPenActive) {
-        state.isPenActive = true;
-        state.strokeColor = colorInput.value;
-        toolBtns.filter((btn) => btn !== penBtn).forEach((oBtn) => setInactive(oBtn));
-        canvas.addEventListener("mousedown", startPosition);
-        canvas.addEventListener("mouseup", finishedPosition);
-        canvas.addEventListener("mousemove", draw);
-        penBtn.style.border = `3px outset ${darkTeal}`;
-    } else {
-        state.isPenActive = false;
-        canvas.removeEventListener("mousedown", startPosition);
-        canvas.removeEventListener("mouseup", finishedPosition);
-        canvas.removeEventListener("mousemove", draw);
-        penBtn.style.border = "none";
-    }
+    state.strokeColor = colorInput.value;
+    toolBtns.filter((btn) => btn !== penBtn).forEach((oBtn) => setInactive(oBtn));
+    canvas.addEventListener("mousedown", startPosition);
+    canvas.addEventListener("mouseup", finishedPosition);
+    canvas.addEventListener("mousemove", draw);
+    penBtn.style.border = activeState;
+    state.isPenActive = true;
+    console.log(state);
 });
 
+//Eraser Button event listener - activate eraser and remove all other listeners
 eraserBtn.addEventListener("click", () => {
-    if (!state.isEraserActive) {
-        state.isEraserActive = true;
-        toolBtns.filter((btn) => btn !== eraserBtn).forEach((oBtn) => setInactive(oBtn));
-        state.strokeColor = "#ffffff";
-        canvas.addEventListener("mousedown", startPosition);
-        canvas.addEventListener("mouseup", finishedPosition);
-        canvas.addEventListener("mousemove", draw);
-        eraserBtn.style.border = `3px outset ${darkTeal}`;
-    } else {
-        state.isEraserActive = false;
-        state.strokeColor = colorInput.value;
-        canvas.removeEventListener("mousedown", startPosition);
-        canvas.removeEventListener("mouseup", finishedPosition);
-        canvas.removeEventListener("mousemove", draw);
-        eraserBtn.style.border = "none";
-    }
+    toolBtns.filter((btn) => btn !== eraserBtn).forEach((oBtn) => setInactive(oBtn));
+    state.strokeColor = "#ffffff";
+    canvas.addEventListener("mousedown", startPosition);
+    canvas.addEventListener("mouseup", finishedPosition);
+    canvas.addEventListener("mousemove", draw);
+    eraserBtn.style.border = activeState;
+    state.isEraserActive = true;
 });
 
 toggleBtn.addEventListener("click", () => {
@@ -170,7 +170,7 @@ colorInput.onchange = () => {
 strokeSelectorBtns.forEach((btn) =>
     btn.addEventListener("click", () => {
         state.width = parseInt(btn.dataset.value);
-        btn.style.border = `2px outset ${darkTeal}`;
+        btn.style.border = `3px outset rgb(0, 212, 169)`;
 
         const otherBtns = strokeSelectorBtns.filter((selectedBtn) => selectedBtn.dataset.value !== btn.dataset.value);
 
