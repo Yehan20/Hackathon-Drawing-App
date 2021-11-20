@@ -58,12 +58,7 @@
 .draw-row .draw-column input[type="color" i] {
   width: 50px !important;
   height: 50px !important;
-  cursor: crosshair;
   padding: 0;
-}
-
-.draw-row .draw-column input[type="color" i]:focus {
-  cursor: crosshair;
 }
 
 .draw-row .draw-column #clear-btn {

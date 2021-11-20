@@ -31,7 +31,6 @@ let inMemCtx = inMemCanvas.getContext("2d");
 // Default state
 const state = {
     isPainting: false,
-    isPenActive: true,
     isCircleActive: false,
     isEraserActive: false,
     isSquareActive: false,
@@ -113,7 +112,6 @@ function setInactive(toolBtn) {
     switch (toolBtn) {
         case penBtn:
             toolBtn.style.border = "none";
-            state.isPenActive = false;
             canvas.removeEventListener("mousedown", startPosition);
             canvas.removeEventListener("mouseup", finishedPosition);
             canvas.removeEventListener("mousemove", draw);
@@ -121,6 +119,9 @@ function setInactive(toolBtn) {
             toolBtn.style.border = "none";
             state.isEraserActive = false;
             state.strokeColor = colorInput.value;
+            //renable the color input.
+            colorInput.disabled = false;
+            colorInput.style.cursor = "default";
             canvas.removeEventListener("mousedown", startPosition);
             canvas.removeEventListener("mouseup", finishedPosition);
             canvas.removeEventListener("mousemove", draw);
@@ -147,8 +148,6 @@ penBtn.addEventListener("click", () => {
     canvas.addEventListener("mouseup", finishedPosition);
     canvas.addEventListener("mousemove", draw);
     penBtn.style.border = activeState;
-    state.isPenActive = true;
-    console.log(state);
 });
 
 //Eraser Button event listener - activate eraser and remove all other listeners
@@ -160,6 +159,10 @@ eraserBtn.addEventListener("click", () => {
     canvas.addEventListener("mousemove", draw);
     eraserBtn.style.border = activeState;
     state.isEraserActive = true;
+
+    //Disable color input to prevent eraser color change.
+    colorInput.disabled = true;
+    colorInput.style.cursor = "not-allowed";
 });
 
 toggleBtn.addEventListener("click", () => {
@@ -175,6 +178,7 @@ toggleBtn.addEventListener("click", () => {
 colorInput.onchange = () => {
     state.strokeColor = colorInput.value;
     state.fillColor = colorInput.value;
+    ctx.strokeStyle = state.strokeColor;
     strokeSelectorsSvgs.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
 };
 
@@ -222,10 +226,6 @@ function mouseUp() {
     width = 0;
     height = 0;
 }
-function mouseOut() {
-    //  When mouse leaves window, prevents drawing of a rectangle.
-    state.isSquareActive = false;
-}
 
 function mouseMove() {
     // if we're not clicking down to draw a square, return to prevent fire of the below code.
@@ -234,9 +234,6 @@ function mouseMove() {
     // current mouse position
     let mouseXEndPos = mouse.x;
     let mouseYEndPos = mouse.y;
-
-    ctx.strokeStyle = state.strokeColor;
-    ctx.lineWidth = state.width;
 
     // calculate the rectangle width/height based
     // on starting vs current mouse position
@@ -247,10 +244,10 @@ function mouseMove() {
 // circle and rect
 squareBtn.addEventListener("click", () => {
     circleBtn.style.border = "none";
+    state.strokeColor = colorInput.value;
+    ctx.strokeStyle = state.strokeColor;
     toolBtns.filter((btn) => btn !== squareBtn).forEach((oBtn) => setInactive(oBtn));
     squareBtn.style.border = activeState;
-    state.isPainting = false;
-    // let canvasOffset = canvas.getBoundingClientRect();
 
     // this flage is true when the user is dragging the mouse
     state.isSquareActive = false;
