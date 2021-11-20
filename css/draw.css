@@ -1,1 +1,116 @@
-*{margin:0;padding:0;border:0;font-size:100%;font:inherit;vertical-align:baseline;-webkit-box-sizing:border-box;box-sizing:border-box}.menu{position:absolute;top:0;left:-50px;-webkit-box-shadow:2px 0 10px 1px #c2c2c2;box-shadow:2px 0 10px 1px #c2c2c2}.draw-row{position:relative;width:50px;height:100vh;z-index:100;-webkit-transition:-webkit-transform 0.5s ease;transition:-webkit-transform 0.5s ease;transition:transform 0.5s ease;transition:transform 0.5s ease, -webkit-transform 0.5s ease}.draw-row .draw-column{overflow:hidden}.draw-row .draw-column hr{height:1.5px;margin:10px;background-color:#00171f !important}.draw-row .draw-column button{width:50px;height:50px;background-color:#fff}.draw-row .draw-column button:hover{border:1px outset #00d4a9;background-color:#5ef4d6}.draw-row .draw-column button img{width:24px;height:24px;margin:5px 8px}.draw-row .draw-column input[type="color" i]{width:50px !important;height:50px !important;cursor:crosshair;padding:0}.draw-row .draw-column input[type="color" i]:focus{cursor:crosshair}.draw-row .draw-column #clear-btn{position:relative;color:#00171f;background-color:#00d4a9;border:none;bottom:0;left:0}.draw-row .draw-column #clear-btn:hover{color:#fff;background-color:#00171f;border:2px outset #00d4a9}.open{-webkit-transform:translateX(50px);transform:translateX(50px)}#toggle-btn{position:absolute;left:0;top:0;width:50px;height:50px;background-color:transparent;z-index:1;-webkit-transition:-webkit-transform 0.5s ease;transition:-webkit-transform 0.5s ease;transition:transform 0.5s ease;transition:transform 0.5s ease, -webkit-transform 0.5s ease}#toggle-btn img{width:24px;height:24px;fill:white}canvas{position:absolute;top:0;left:0;z-index:-1;overflow:hidden}
+* {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left: -50px;
+  -webkit-box-shadow: 2px 0 10px 1px #c2c2c2;
+          box-shadow: 2px 0 10px 1px #c2c2c2;
+}
+
+.draw-row {
+  position: relative;
+  width: 50px;
+  height: 100vh;
+  z-index: 100;
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+
+.draw-row .draw-column {
+  overflow: hidden;
+}
+
+.draw-row .draw-column hr {
+  height: 1.5px;
+  margin: 10px;
+  background-color: #00171f !important;
+}
+
+.draw-row .draw-column button {
+  width: 50px;
+  height: 50px;
+  background-color: white;
+}
+
+.draw-row .draw-column button:hover {
+  border: 1px outset #00d4a9;
+  background-color: #5ef4d6;
+}
+
+.draw-row .draw-column button img {
+  width: 24px;
+  height: 24px;
+  margin: 5px 8px;
+}
+
+.draw-row .draw-column input[type="color" i] {
+  width: 50px !important;
+  height: 50px !important;
+  cursor: crosshair;
+  padding: 0;
+}
+
+.draw-row .draw-column input[type="color" i]:focus {
+  cursor: crosshair;
+}
+
+.draw-row .draw-column #clear-btn {
+  position: relative;
+  color: #00171f;
+  background-color: #00d4a9;
+  border: none;
+  bottom: 0;
+  left: 0;
+}
+
+.draw-row .draw-column #clear-btn:hover {
+  color: white;
+  background-color: #00171f;
+  border: 2px outset #00d4a9;
+}
+
+.open {
+  -webkit-transform: translateX(50px);
+          transform: translateX(50px);
+}
+
+#toggle-btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  z-index: 1;
+  -webkit-transition: -webkit-transform 0.5s ease;
+  transition: -webkit-transform 0.5s ease;
+  transition: transform 0.5s ease;
+  transition: transform 0.5s ease, -webkit-transform 0.5s ease;
+}
+
+#toggle-btn img {
+  width: 24px;
+  height: 24px;
+  fill: white;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  overflow: hidden;
+  cursor: crosshair;
+}

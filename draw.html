@@ -18,7 +18,7 @@
     <body>
         <div class="menu">
             <div class="draw-row">
-                <div class="draw-column">
+                <div class="draw-column" container:body>
                     <button id="pen-btn">
                         <img src="images/pencil.svg" alt="pencil icon" />
                     </button>
@@ -31,7 +31,7 @@
                     <button>
                         <img src="images/line.svg" alt="pencil icon" />
                     </button>
-                    <button>
+                    <button id="eraser-btn">
                         <img src="images/eraser.svg" alt="pencil icon" />
                     </button>
                     <hr />
@@ -63,7 +63,7 @@
                     <hr />
                     <input id="color-input" type="color" data-bs-toggle="tooltip" data-bs-placement="right" title="Color Picker" />
                     <hr />
-                    <button id="clear-btn" data-bs-toggle="tooltip" data-bs-placement="right" title="Clear Canvas">Clear</button>
+                    <button id="clear-btn">Clear</button>
                 </div>
             </div>
         </div>
