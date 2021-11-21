@@ -29,7 +29,7 @@
 }
 
 .draw-row .draw-column {
-  overflow: hidden;
+  overflow: scroll;
 }
 
 .draw-row .draw-column hr {
