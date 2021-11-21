@@ -35,11 +35,7 @@
                         <img src="images/eraser.svg" alt="pencil icon" />
                     </button>
                     <hr />
-                    <button id="stroke-1" data-value="1">
-                        <svg class="stroke-svg" width="50" height="50">
-                            <circle cx="25" cy="25" r="2" />
-                        </svg>
-                    </button>
+
                     <button id="stroke-5" data-value="5">
                         <svg class="stroke-svg" width="50" height="50">
                             <circle cx="25" cy="25" r="4" />
@@ -69,6 +65,9 @@
             </div>
         </div>
         <button id="toggle-btn"></button>
+        <div class="undo-redo-container">
+            <button id="undo-btn">Undo</button>
+        </div>
         <canvas id="canvas"></canvas>
     </body>
     <script

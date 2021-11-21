@@ -105,6 +105,21 @@
   fill: white;
 }
 
+.undo-redo-container {
+  position: absolute;
+  padding: 10px 15px;
+  right: 0;
+  top: 0;
+}
+
+.undo-redo-container button {
+  color: black;
+  background-color: #00d4a9;
+  padding: 10px 14px;
+  border: 1px solid #5ef4d6;
+  border-radius: 6px;
+}
+
 .save-img {
   width: 100%;
 }
