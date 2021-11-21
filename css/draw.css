@@ -29,7 +29,7 @@
 }
 
 .draw-row .draw-column {
-  overflow: scroll;
+  overflow: hidden;
 }
 
 .draw-row .draw-column hr {
@@ -101,6 +101,10 @@
   fill: white;
 }
 
+.save-img {
+  width: 100%;
+}
+
 canvas {
   position: absolute;
   top: 0;
@@ -108,12 +112,4 @@ canvas {
   z-index: -1;
   overflow: hidden;
   cursor: crosshair;
-}
-.save-img{
-  max-width:100%;
-}
-#dl{
-  cursor: pointer;
-  text-decoration:none;
-  font-size:0.7rem;
 }

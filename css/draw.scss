@@ -35,7 +35,7 @@ $white: white;
     transition: transform 0.5s ease;
 
     .draw-column {
-        overflow: scroll;
+        overflow: hidden;
         hr {
             height: 1.5px;
             margin: 10px;
@@ -96,6 +96,10 @@ $white: white;
         height: 24px;
         fill: white;
     }
+}
+
+.save-img {
+    width: 100%;
 }
 
 canvas {
