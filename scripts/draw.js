@@ -6,13 +6,11 @@ const penBtn = document.getElementById("pen-btn");
 const circleBtn = document.getElementById("circle-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
-const navbar = document.querySelector(".draw-row");
+const menubar = document.querySelector(".menu");
 const squareBtn = document.getElementById("square-btn");
 const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
-
-toggleBtn.innerHTML = menuSvg;
 
 const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn];
 
@@ -45,7 +43,7 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // Set menu button to show the menu svg.
-toggleBtn.innerHTML = menuSvg;
+toggleBtn.innerHTML = exitSvg;
 
 //Initialize drawing feature and apply active state CSS to pen button and current stroke size.
 canvas.addEventListener("mousedown", startPosition);
@@ -166,12 +164,12 @@ eraserBtn.addEventListener("click", () => {
 });
 
 toggleBtn.addEventListener("click", () => {
-    if (navbar.classList.contains("open")) {
-        toggleBtn.innerHTML = menuSvg;
-    } else {
+    if (menubar.classList.contains("open")) {
         toggleBtn.innerHTML = exitSvg;
+    } else {
+        toggleBtn.innerHTML = menuSvg;
     }
-    navbar.classList.toggle("open");
+    menubar.classList.toggle("open");
     toggleBtn.classList.toggle("open");
 });
 
@@ -290,10 +288,9 @@ circleBtn.addEventListener("click", () => {
     canvas.addEventListener("mouseup", mouseUpC);
 });
 
-const dwnld=document.getElementById('dl');
-dwnld.addEventListener('click', dlCanvas, false);
+const dwnld = document.getElementById("dl");
+dwnld.addEventListener("click", dlCanvas, false);
 function dlCanvas(e) {
- 
-    var dt = canvas.toDataURL('image/png');
+    var dt = canvas.toDataURL("image/png");
     this.href = dt;
-};
+}
