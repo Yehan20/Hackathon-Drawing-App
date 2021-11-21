@@ -59,11 +59,7 @@ $white: white;
         input[type="color" i] {
             width: 50px !important;
             height: 50px !important;
-            cursor: crosshair;
             padding: 0;
-            &:focus {
-                cursor: crosshair;
-            }
         }
 
         #clear-btn {

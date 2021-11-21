@@ -7,13 +7,14 @@ const circleBtn = document.getElementById("circle-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 const navbar = document.querySelector(".draw-row");
+const squareBtn = document.getElementById("square-btn");
 const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 
 toggleBtn.innerHTML = menuSvg;
 
-const toolBtns = [penBtn, circleBtn, eraserBtn];
+const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn];
 
 //Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -30,9 +31,9 @@ let inMemCtx = inMemCanvas.getContext("2d");
 // Default state
 const state = {
     isPainting: false,
-    isPenActive: true,
     isCircleActive: false,
     isEraserActive: false,
+    isSquareActive: false,
     strokeColor: colorInput.value,
     fillColor: "black",
     width: 1
@@ -111,7 +112,6 @@ function setInactive(toolBtn) {
     switch (toolBtn) {
         case penBtn:
             toolBtn.style.border = "none";
-            state.isPenActive = false;
             canvas.removeEventListener("mousedown", startPosition);
             canvas.removeEventListener("mouseup", finishedPosition);
             canvas.removeEventListener("mousemove", draw);
@@ -119,9 +119,23 @@ function setInactive(toolBtn) {
             toolBtn.style.border = "none";
             state.isEraserActive = false;
             state.strokeColor = colorInput.value;
+            //renable the color input.
+            colorInput.disabled = false;
+            colorInput.style.cursor = "default";
             canvas.removeEventListener("mousedown", startPosition);
             canvas.removeEventListener("mouseup", finishedPosition);
             canvas.removeEventListener("mousemove", draw);
+        case squareBtn:
+            toolBtn.style.border = "none";
+            state.isSquareActive = false;
+            canvas.removeEventListener("mousedown", mouseDown);
+            canvas.removeEventListener("mousemove", mouseMove);
+            canvas.removeEventListener("mouseup", mouseUp);
+        case circleBtn:
+            toolBtn.style.border = "none";
+            state.isCircleActive = false;
+            canvas.removeEventListener("mousedown", mouseDownC);
+            canvas.removeEventListener("mouseup", mouseUpC);
         default:
             return;
     }
@@ -134,8 +148,6 @@ penBtn.addEventListener("click", () => {
     canvas.addEventListener("mouseup", finishedPosition);
     canvas.addEventListener("mousemove", draw);
     penBtn.style.border = activeState;
-    state.isPenActive = true;
-    console.log(state);
 });
 
 //Eraser Button event listener - activate eraser and remove all other listeners
@@ -147,6 +159,10 @@ eraserBtn.addEventListener("click", () => {
     canvas.addEventListener("mousemove", draw);
     eraserBtn.style.border = activeState;
     state.isEraserActive = true;
+
+    //Disable color input to prevent eraser color change.
+    colorInput.disabled = true;
+    colorInput.style.cursor = "not-allowed";
 });
 
 toggleBtn.addEventListener("click", () => {
@@ -162,6 +178,7 @@ toggleBtn.addEventListener("click", () => {
 colorInput.onchange = () => {
     state.strokeColor = colorInput.value;
     state.fillColor = colorInput.value;
+    ctx.strokeStyle = state.strokeColor;
     strokeSelectorsSvgs.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
 };
 
@@ -170,7 +187,8 @@ colorInput.onchange = () => {
 strokeSelectorBtns.forEach((btn) =>
     btn.addEventListener("click", () => {
         state.width = parseInt(btn.dataset.value);
-        btn.style.border = `3px outset rgb(0, 212, 169)`;
+        ctx.lineWidth = state.width;
+        btn.style.border = activeState;
 
         const otherBtns = strokeSelectorBtns.filter((selectedBtn) => selectedBtn.dataset.value !== btn.dataset.value);
 
@@ -182,3 +200,92 @@ strokeSelectorBtns.forEach((btn) =>
 clearBtn.onclick = () => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
+
+// these vars will hold the starting mouse position
+let startX;
+let startY;
+let width = 0;
+let height = 0;
+
+function mouseDown() {
+    // save the x/y
+    startX = mouse.x;
+    startY = mouse.y;
+
+    //  flag indicating the drag has begun
+    state.isSquareActive = true;
+}
+
+function mouseUp() {
+    // When click is released, create rectangle drawing.
+    ctx.strokeRect(startX, startY, width, height);
+    state.isSquareActive = false;
+    // Reset rectangle parameters to prevent a duplicate of rectangle on click
+    startX = 0;
+    startY = 0;
+    width = 0;
+    height = 0;
+}
+
+function mouseMove() {
+    // if we're not clicking down to draw a square, return to prevent fire of the below code.
+    if (!state.isSquareActive) return;
+
+    // current mouse position
+    let mouseXEndPos = mouse.x;
+    let mouseYEndPos = mouse.y;
+
+    // calculate the rectangle width/height based
+    // on starting vs current mouse position
+    width = mouseXEndPos - startX;
+    height = mouseYEndPos - startY;
+}
+
+// circle and rect
+squareBtn.addEventListener("click", () => {
+    circleBtn.style.border = "none";
+    state.strokeColor = colorInput.value;
+    ctx.strokeStyle = state.strokeColor;
+    toolBtns.filter((btn) => btn !== squareBtn).forEach((oBtn) => setInactive(oBtn));
+    squareBtn.style.border = activeState;
+
+    // this flage is true when the user is dragging the mouse
+    state.isSquareActive = false;
+
+    // mouse movement event listeners
+    canvas.addEventListener("mousedown", mouseDown);
+    canvas.addEventListener("mousemove", mouseMove);
+    canvas.addEventListener("mouseup", mouseUp);
+});
+
+// circle
+
+function drawEllipse(x, y) {
+    if (!state.isCircleActive) {
+        return;
+    }
+    ctx.beginPath();
+    ctx.moveTo(startX, startY + (y - startY) / 2);
+    ctx.bezierCurveTo(startX, startY, x, startY, x, startY + (y - startY) / 2);
+    ctx.bezierCurveTo(x, y, startX, y, startX, startY + (y - startY) / 2);
+    ctx.closePath();
+    ctx.stroke();
+}
+function mouseDownC() {
+    startX = mouse.x;
+    startY = mouse.y;
+}
+function mouseUpC() {
+    drawEllipse(mouse.x, mouse.y);
+    ctx.beginPath();
+}
+
+circleBtn.addEventListener("click", () => {
+    toolBtns.filter((btn) => btn !== circleBtn).forEach((oBtn) => setInactive(oBtn));
+    circleBtn.style.border = activeState;
+    ctx.strokeStyle = state.strokeColor;
+    ctx.lineWidth = state.width;
+    state.isCircleActive = true;
+    canvas.addEventListener("mousedown", mouseDownC);
+    canvas.addEventListener("mouseup", mouseUpC);
+});
