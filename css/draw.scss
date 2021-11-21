@@ -22,8 +22,9 @@ $white: white;
 .menu {
     position: absolute;
     top: 0;
-    left: -50px;
+    left: 0px;
     box-shadow: 2px 0 10px 1px $menu-background;
+    transition: transform 0.5s ease;
 }
 
 .draw-row {
@@ -79,12 +80,12 @@ $white: white;
 }
 
 .open {
-    transform: translateX(50px);
+    transform: translateX(-50px);
 }
 
 #toggle-btn {
     position: absolute;
-    left: 0;
+    left: 50px;
     top: 0;
     width: 50px;
     height: 50px;
