@@ -308,6 +308,8 @@ let drawHistoryIndex = -1;
 function undoLast() {
     if (drawHistoryIndex <= 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        drawHistory.pop();
+        drawHistoryIndex--;
     } else {
         ctx.putImageData(drawHistory[drawHistoryIndex - 1], 0, 0);
         drawHistory.pop();
