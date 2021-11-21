@@ -50,9 +50,6 @@ toggleBtn.innerHTML = exitSvg;
 canvas.addEventListener("mousedown", startPenPosition);
 canvas.addEventListener("mouseup", finishedPenPosition);
 canvas.addEventListener("mousemove", drawPen);
-canvas.addEventListener("touchstart", startPenPosition);
-canvas.addEventListener("touchend", finishedPenPosition);
-canvas.addEventListener("touchmove", drawPen);
 penBtn.style.border = `3px outset rgb(0, 212, 169)`;
 strokeSelectorBtns[0].style.border = `3px outset rgb(0, 212, 169)`;
 
@@ -119,9 +116,6 @@ function setInactive(toolBtn) {
             canvas.removeEventListener("mousedown", startPenPosition);
             canvas.removeEventListener("mouseup", finishedPenPosition);
             canvas.removeEventListener("mousemove", drawPen);
-            canvas.removeEventListener("touchstart", startPenPosition);
-            canvas.removeEventListener("touchend", finishedPenPosition);
-            canvas.removeEventListener("touchmove", drawPen);
         case eraserBtn:
             toolBtn.style.border = "none";
             state.isEraserActive = false;
@@ -132,9 +126,6 @@ function setInactive(toolBtn) {
             canvas.removeEventListener("mousedown", startPenPosition);
             canvas.removeEventListener("mouseup", finishedPenPosition);
             canvas.removeEventListener("mousemove", drawPen);
-            canvas.removeEventListener("touchstart", startPenPosition);
-            canvas.removeEventListener("touchend", finishedPenPosition);
-            canvas.removeEventListener("touchmove", drawPen);
         case squareBtn:
             toolBtn.style.border = "none";
             state.isSquareActive = false;
@@ -157,9 +148,6 @@ penBtn.addEventListener("click", () => {
     canvas.addEventListener("mousedown", startPenPosition);
     canvas.addEventListener("mouseup", finishedPenPosition);
     canvas.addEventListener("mousemove", drawPen);
-    canvas.addEventListener("touchstart", startPenPosition);
-    canvas.addEventListener("touchend", finishedPenPosition);
-    canvas.addEventListener("touchmove", drawPen);
     penBtn.style.border = activeState;
 });
 
@@ -170,9 +158,6 @@ eraserBtn.addEventListener("click", () => {
     canvas.addEventListener("mousedown", startPenPosition);
     canvas.addEventListener("mouseup", finishedPenPosition);
     canvas.addEventListener("mousemove", drawPen);
-    canvas.addEventListener("touchstart", startPenPosition);
-    canvas.addEventListener("touchend", finishedPenPosition);
-    canvas.addEventListener("touchmove", drawPen);
     eraserBtn.style.border = activeState;
     state.isEraserActive = true;
 
