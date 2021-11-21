@@ -99,6 +99,20 @@ $white: white;
     }
 }
 
+.undo-redo-container {
+    position: absolute;
+    padding: 10px 15px;
+    right: 0;
+    top: 0;
+    button {
+        color: black;
+        background-color: $mintbean-dark-teal;
+        padding: 10px 14px;
+        border: 1px solid $mintbean-mint;
+        border-radius: 6px;
+    }
+}
+
 .save-img {
     width: 100%;
 }
