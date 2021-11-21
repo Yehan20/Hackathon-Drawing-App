@@ -5,6 +5,7 @@ const toggleBtn = document.getElementById("toggle-btn");
 const undoBtn = document.getElementById("undo-btn");
 const penBtn = document.getElementById("pen-btn");
 const circleBtn = document.getElementById("circle-btn");
+const lineBtn=document.getElementById('line-btn');
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 const menubar = document.querySelector(".menu");
@@ -13,7 +14,7 @@ const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 
-const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn];
+const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn,lineBtn];
 
 //Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -32,6 +33,7 @@ const state = {
     isPainting: false,
     isCircleActive: false,
     isSquareActive: false,
+    isLineActive:false,
     strokeColor: colorInput.value,
     fillColor: "black",
     width: 5
@@ -134,8 +136,21 @@ function setInactive(toolBtn) {
         case circleBtn:
             toolBtn.style.border = "none";
             state.isCircleActive = false;
+
+            canvas.removeEventListener("mousedown", mouseDownC);
+            canvas.removeEventListener("mouseup", mouseUpC);
+
+         case lineBtn:
+             toolBtn.style.border= "none";
+             state.isLineActive=false;     
+             canvas.removeEventListener('mousedown', mouseDownL);
+             canvas.removeEventListener('mousemove', mouseMoveL);
+             canvas.removeEventListener('mouseup', mouseupL);
+           
+
             canvas.removeEventListener("mousedown", mouseDownCircle);
             canvas.removeEventListener("mouseup", mouseUpCircle);
+
         default:
             return;
     }
@@ -299,6 +314,64 @@ function dlCanvas(e) {
     var dt = canvas.toDataURL("image/png");
     this.href = dt;
 }
+
+// line btn here
+
+let startPosition = {x: 0, y: 0};
+let lineCoordinates = {x: 0, y: 0};
+let isDrawStart = false;
+
+const getClientOffset = (e) => {
+    const {pageX, pageY} = e.touches ? e.touches[0] : e;
+    const x = pageX - canvas.offsetLeft;
+    const y = pageY - canvas.offsetTop;
+   
+    return {
+       x,
+       y
+    } 
+}
+
+console.log(canvas.offsetTop);
+function drawLine () {
+   
+   ctx.moveTo(startPosition.x, startPosition.y);
+   ctx.lineTo(lineCoordinates.x, lineCoordinates.y);
+   ctx.stroke();
+}
+
+function mouseDownL(e) {
+   startPosition = getClientOffset(e);
+   console.log('sp',startPosition);
+   isDrawStart = true;
+ 
+}
+
+function mouseMoveL (e) {
+  if(!isDrawStart) return;
+  ctx.beginPath();
+  lineCoordinates = getClientOffset(e);
+  console.log('lc',lineCoordinates);
+
+  
+}
+
+function mouseupL (e) {
+    drawLine();
+  isDrawStart = false;
+}
+lineBtn.addEventListener('click',(e)=>{
+    toolBtns.filter((btn) => btn !== lineBtn).forEach((oBtn) => setInactive(oBtn));
+    lineBtn.style.border = activeState;
+    ctx.strokeStyle = state.strokeColor;
+    ctx.lineWidth = state.width;
+    state.isLineActive = true;
+
+    canvas.addEventListener('mousedown', mouseDownL);
+    canvas.addEventListener('mousemove', mouseMoveL);
+    canvas.addEventListener('mouseup', mouseupL);
+})
+
 
 let drawHistory = [];
 let drawHistoryIndex = -1;
