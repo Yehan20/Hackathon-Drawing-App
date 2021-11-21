@@ -289,3 +289,11 @@ circleBtn.addEventListener("click", () => {
     canvas.addEventListener("mousedown", mouseDownC);
     canvas.addEventListener("mouseup", mouseUpC);
 });
+
+const dwnld=document.getElementById('dl');
+dwnld.addEventListener('click', dlCanvas, false);
+function dlCanvas(e) {
+ 
+    var dt = canvas.toDataURL('image/png');
+    this.href = dt;
+};
