@@ -137,8 +137,8 @@ function setInactive(toolBtn) {
             toolBtn.style.border = "none";
             state.isCircleActive = false;
 
-            canvas.removeEventListener("mousedown", mouseDownC);
-            canvas.removeEventListener("mouseup", mouseUpC);
+            canvas.removeEventListener("mousedown", mouseDownCircle);
+            canvas.removeEventListener("mouseup", mouseUpCircle);
 
          case lineBtn:
              toolBtn.style.border= "none";
