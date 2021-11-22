@@ -1,11 +1,11 @@
-import { resizeCanvas } from "./resize.js";
+import { resizeCanvas } from "./helper.js";
 import { menuSvg, exitSvg, activeState } from "./styles.js";
 
 const toggleBtn = document.getElementById("toggle-btn");
 const undoBtn = document.getElementById("undo-btn");
 const penBtn = document.getElementById("pen-btn");
 const circleBtn = document.getElementById("circle-btn");
-const lineBtn=document.getElementById('line-btn');
+const lineBtn = document.getElementById("line-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const clearBtn = document.getElementById("clear-btn");
 const menubar = document.querySelector(".menu");
@@ -14,7 +14,7 @@ const colorInput = document.getElementById("color-input");
 const strokeSelectorsSvgs = [...document.getElementsByClassName("stroke-svg")];
 const strokeSelectorBtns = strokeSelectorsSvgs.map((selector) => selector.parentElement);
 
-const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn,lineBtn];
+const toolBtns = [penBtn, circleBtn, eraserBtn, squareBtn, lineBtn];
 
 //Enable tooltop for Bootstrap
 let tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
@@ -28,12 +28,16 @@ const ctx = canvas.getContext("2d");
 let inMemCanvas = document.createElement("canvas");
 let inMemCtx = inMemCanvas.getContext("2d");
 
+// Initialize history tracking of elements being drawn.
+let drawHistory = [];
+let drawHistoryIndex = -1;
+
 // Default state
 const state = {
     isPainting: false,
     isCircleActive: false,
     isSquareActive: false,
-    isLineActive:false,
+    isLineActive: false,
     strokeColor: colorInput.value,
     fillColor: "black",
     width: 5
@@ -47,12 +51,36 @@ canvas.height = window.innerHeight;
 // Set menu button to show the menu svg.
 toggleBtn.innerHTML = exitSvg;
 
-//Initialize drawing feature and apply active state CSS to pen button and current stroke size.
-canvas.addEventListener("mousedown", startPenPos);
-canvas.addEventListener("mouseup", finishedPenPos);
-canvas.addEventListener("mousemove", drawPen);
-penBtn.style.border = activeState;
-strokeSelectorBtns[0].style.border = activeState;
+// When toggle button click, change inner html to corresponding SVG.
+toggleBtn.addEventListener("click", () => {
+    if (!menubar.classList.contains("close")) {
+        toggleBtn.innerHTML = menuSvg;
+    } else {
+        toggleBtn.innerHTML = exitSvg;
+    }
+    menubar.classList.toggle("close");
+    toggleBtn.classList.toggle("close");
+});
+
+// Function to add group of event listeners.
+const appendEventListeners = (mousedown, mouseup, mousemove = null) => {
+    canvas.addEventListener("mousedown", mousedown);
+    canvas.addEventListener("mouseup", mouseup);
+    if (mousemove) {
+        canvas.addEventListener("mousemove", mousemove);
+    } else {
+        return;
+    }
+};
+const removeEventListeners = (mousedown, mouseup, mousemove = null) => {
+    canvas.removeEventListener("mousedown", mousedown);
+    canvas.removeEventListener("mouseup", mouseup);
+    if (mousemove) {
+        canvas.removeEventListener("mousemove", mousemove);
+    } else {
+        return;
+    }
+};
 
 // Debounce - This will fire resizeCanvas once after 1 second from the last resize event.
 let timer_id = undefined;
@@ -68,7 +96,7 @@ window.addEventListener("resize", function () {
 });
 
 // Update mouse object {x,y} position everytime it moves relative to canvas size/positioning. Prevents offset from cursor after resizing the window.
-let mouse = { x: 0, y: 0 };
+const mouse = { x: 0, y: 0 };
 window.addEventListener("mousemove", function (evt) {
     var mousePos = getMousePos(canvas, evt);
     mouse.x = mousePos.x;
@@ -83,6 +111,11 @@ function getMousePos(canvas, event) {
     };
 }
 
+//Initialize drawing feature and apply active state CSS to pen button and current stroke size.
+appendEventListeners(startPenPos, finishedPenPos, drawPen);
+penBtn.style.border = activeState;
+strokeSelectorBtns[0].style.border = activeState;
+
 // Draw - Pencil/Pen & Eraser function
 function startPenPos() {
     state.isPainting = true;
@@ -92,15 +125,12 @@ function startPenPos() {
 
 function finishedPenPos() {
     state.isPainting = false;
-    ctx.save();
     ctx.beginPath();
-    drawHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    drawHistoryIndex++;
+    addDrawHistory();
 }
 
-function drawPen(e) {
+function drawPen() {
     if (!state.isPainting) return;
-    console.log(e);
     ctx.lineWidth = state.width;
     ctx.lineCap = "round";
     ctx.strokeStyle = state.strokeColor;
@@ -110,58 +140,11 @@ function drawPen(e) {
     ctx.moveTo(mouse.x, mouse.y);
 }
 
-// Function to set tool button state inactive and remove their corresponding event listeners
-function setInactive(toolBtn) {
-    switch (toolBtn) {
-        case penBtn:
-            toolBtn.style.border = "none";
-            canvas.removeEventListener("mousedown", startPenPos);
-            canvas.removeEventListener("mouseup", finishedPenPos);
-            canvas.removeEventListener("mousemove", drawPen);
-        case eraserBtn:
-            toolBtn.style.border = "none";
-            state.strokeColor = colorInput.value;
-            //renable the color input.
-            colorInput.disabled = false;
-            colorInput.style.cursor = "default";
-            canvas.removeEventListener("mousedown", startPenPos);
-            canvas.removeEventListener("mouseup", finishedPenPos);
-            canvas.removeEventListener("mousemove", drawPen);
-        case squareBtn:
-            toolBtn.style.border = "none";
-            state.isSquareActive = false;
-            canvas.removeEventListener("mousedown", mouseDownSquare);
-            canvas.removeEventListener("mousemove", mouseMoveSquare);
-            canvas.removeEventListener("mouseup", mouseUpSquare);
-        case circleBtn:
-            toolBtn.style.border = "none";
-            state.isCircleActive = false;
-
-            canvas.removeEventListener("mousedown", mouseDownC);
-            canvas.removeEventListener("mouseup", mouseUpC);
-
-         case lineBtn:
-             toolBtn.style.border= "none";
-             state.isLineActive=false;     
-             canvas.removeEventListener('mousedown', mouseDownL);
-             canvas.removeEventListener('mousemove', mouseMoveL);
-             canvas.removeEventListener('mouseup', mouseupL);
-           
-
-            canvas.removeEventListener("mousedown", mouseDownCircle);
-            canvas.removeEventListener("mouseup", mouseUpCircle);
-
-        default:
-            return;
-    }
-}
-
+// Pen Button Event Listener - activate pen and remove all other listeners
 penBtn.addEventListener("click", () => {
     state.strokeColor = colorInput.value;
     toolBtns.filter((btn) => btn !== penBtn).forEach((oBtn) => setInactive(oBtn));
-    canvas.addEventListener("mousedown", startPenPos);
-    canvas.addEventListener("mouseup", finishedPenPos);
-    canvas.addEventListener("mousemove", drawPen);
+    appendEventListeners(startPenPos, finishedPenPos, drawPen);
     penBtn.style.border = activeState;
 });
 
@@ -169,24 +152,11 @@ penBtn.addEventListener("click", () => {
 eraserBtn.addEventListener("click", () => {
     toolBtns.filter((btn) => btn !== eraserBtn).forEach((oBtn) => setInactive(oBtn));
     state.strokeColor = "#ffffff";
-    canvas.addEventListener("mousedown", startPenPos);
-    canvas.addEventListener("mouseup", finishedPenPos);
-    canvas.addEventListener("mousemove", drawPen);
+    appendEventListeners(startPenPos, finishedPenPos, drawPen);
     eraserBtn.style.border = activeState;
-
     //Disable color input to prevent eraser color change.
     colorInput.disabled = true;
     colorInput.style.cursor = "not-allowed";
-});
-
-toggleBtn.addEventListener("click", () => {
-    if (menubar.classList.contains("open")) {
-        toggleBtn.innerHTML = exitSvg;
-    } else {
-        toggleBtn.innerHTML = menuSvg;
-    }
-    menubar.classList.toggle("open");
-    toggleBtn.classList.toggle("open");
 });
 
 colorInput.onchange = () => {
@@ -212,19 +182,20 @@ strokeSelectorBtns.forEach((btn) =>
 
 // Onclick Function to clear canvas board.
 clearBtn.onclick = () => {
+    addDrawHistory();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 };
 
 // these vars will hold the starting mouse position
-let mouseXStartPos;
-let mouseYStartPos;
+const mouseStartPos = { x: 0, y: 0 };
+const mouseEndPos = { x: 0, y: 0 };
 let width = 0;
 let height = 0;
 
 function mouseDownSquare() {
-    // save the x/y
-    mouseXStartPos = mouse.x;
-    mouseYStartPos = mouse.y;
+    // save the x/y start position
+    mouseStartPos.x = mouse.x;
+    mouseStartPos.y = mouse.y;
 
     //  flag indicating the drag has begun
     state.isSquareActive = true;
@@ -232,15 +203,13 @@ function mouseDownSquare() {
 
 function mouseUpSquare() {
     // When click is released, create rectangle drawing.
-    ctx.strokeRect(mouseXStartPos, mouseYStartPos, width, height);
+    ctx.strokeRect(mouseStartPos.x, mouseStartPos.y, width, height);
+    console.log("mouseStartPos:", mouseStartPos);
     state.isSquareActive = false;
     // Reset rectangle parameters to prevent a duplicate of rectangle on click
-    mouseXStartPos = 0;
-    mouseYStartPos = 0;
     width = 0;
     height = 0;
-    drawHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    drawHistoryIndex++;
+    addDrawHistory();
 }
 
 function mouseMoveSquare() {
@@ -248,30 +217,28 @@ function mouseMoveSquare() {
     if (!state.isSquareActive) return;
 
     // current mouse position
-    let mouseXEndPos = mouse.x;
-    let mouseYEndPos = mouse.y;
+    mouseEndPos.x = mouse.x;
+    mouseEndPos.y = mouse.y;
 
     // calculate the rectangle width/height based
     // on starting vs current mouse position
-    width = mouseXEndPos - mouseXStartPos;
-    height = mouseYEndPos - mouseYStartPos;
+    width = mouseEndPos.x - mouseStartPos.x;
+    height = mouseEndPos.y - mouseStartPos.y;
 }
 
 // circle and rect
 squareBtn.addEventListener("click", () => {
-    circleBtn.style.border = "none";
     state.strokeColor = colorInput.value;
     ctx.strokeStyle = state.strokeColor;
+    ctx.lineWidth = state.width;
     toolBtns.filter((btn) => btn !== squareBtn).forEach((oBtn) => setInactive(oBtn));
     squareBtn.style.border = activeState;
 
-    // this flage is true when the user is dragging the mouse
+    // this flag is true when the user is dragging the mouse
     state.isSquareActive = false;
 
     // mouse movement event listeners
-    canvas.addEventListener("mousedown", mouseDownSquare);
-    canvas.addEventListener("mousemove", mouseMoveSquare);
-    canvas.addEventListener("mouseup", mouseUpSquare);
+    appendEventListeners(mouseDownSquare, mouseUpSquare, mouseMoveSquare);
 });
 
 // circle
@@ -281,21 +248,20 @@ function drawEllipse(x, y) {
         return;
     }
     ctx.beginPath();
-    ctx.moveTo(mouseXStartPos, mouseYStartPos + (y - mouseYStartPos) / 2);
-    ctx.bezierCurveTo(mouseXStartPos, mouseYStartPos, x, mouseYStartPos, x, mouseYStartPos + (y - mouseYStartPos) / 2);
-    ctx.bezierCurveTo(x, y, mouseXStartPos, y, mouseXStartPos, mouseYStartPos + (y - mouseYStartPos) / 2);
+    ctx.moveTo(mouseStartPos.x, mouseStartPos.y + (y - mouseStartPos.y) / 2);
+    ctx.bezierCurveTo(mouseStartPos.x, mouseStartPos.y, x, mouseStartPos.y, x, mouseStartPos.y + (y - mouseStartPos.y) / 2);
+    ctx.bezierCurveTo(x, y, mouseStartPos.x, y, mouseStartPos.x, mouseStartPos.y + (y - mouseStartPos.y) / 2);
     ctx.closePath();
     ctx.stroke();
 }
 function mouseDownCircle() {
-    mouseXStartPos = mouse.x;
-    mouseYStartPos = mouse.y;
+    mouseStartPos.x = mouse.x;
+    mouseStartPos.y = mouse.y;
 }
 function mouseUpCircle() {
     drawEllipse(mouse.x, mouse.y);
     ctx.beginPath();
-    drawHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
-    drawHistoryIndex++;
+    addDrawHistory();
 }
 
 circleBtn.addEventListener("click", () => {
@@ -304,83 +270,63 @@ circleBtn.addEventListener("click", () => {
     ctx.strokeStyle = state.strokeColor;
     ctx.lineWidth = state.width;
     state.isCircleActive = true;
-    canvas.addEventListener("mousedown", mouseDownCircle);
-    canvas.addEventListener("mouseup", mouseUpCircle);
+    appendEventListeners(mouseDownCircle, mouseUpCircle);
 });
 
 const dwnld = document.getElementById("dl");
 dwnld.addEventListener("click", dlCanvas, false);
-function dlCanvas(e) {
+
+function dlCanvas() {
     var dt = canvas.toDataURL("image/png");
     this.href = dt;
 }
 
-// line btn here
+// Draw straight line functionality.
 
-let startPosition = {x: 0, y: 0};
-let lineCoordinates = {x: 0, y: 0};
-let isDrawStart = false;
-
-const getClientOffset = (e) => {
-    const {pageX, pageY} = e.touches ? e.touches[0] : e;
-    const x = pageX - canvas.offsetLeft;
-    const y = pageY - canvas.offsetTop;
-   
-    return {
-       x,
-       y
-    } 
+function drawLine() {
+    ctx.moveTo(mouseStartPos.x, mouseStartPos.y);
+    ctx.lineTo(mouseEndPos.x, mouseEndPos.y);
+    ctx.stroke();
 }
 
-console.log(canvas.offsetTop);
-function drawLine () {
-   
-   ctx.moveTo(startPosition.x, startPosition.y);
-   ctx.lineTo(lineCoordinates.x, lineCoordinates.y);
-   ctx.stroke();
+function mouseDownLine() {
+    mouseStartPos.x = mouse.x;
+    mouseStartPos.y = mouse.y;
 }
 
-function mouseDownL(e) {
-   startPosition = getClientOffset(e);
-   console.log('sp',startPosition);
-   isDrawStart = true;
- 
+function mouseMoveLine() {
+    if (!state.isLineActive) return;
+    ctx.beginPath();
+    mouseEndPos.x = mouse.x;
+    mouseEndPos.y = mouse.y;
 }
 
-function mouseMoveL (e) {
-  if(!isDrawStart) return;
-  ctx.beginPath();
-  lineCoordinates = getClientOffset(e);
-  console.log('lc',lineCoordinates);
-
-  
-}
-
-function mouseupL (e) {
+function mouseUpLine(e) {
     drawLine();
-  isDrawStart = false;
+    // reset to a new drawing instance on canvas. (prevents each individual drawing from connecting)
+    ctx.beginPath();
+    addDrawHistory();
 }
-lineBtn.addEventListener('click',(e)=>{
+
+lineBtn.addEventListener("click", (e) => {
     toolBtns.filter((btn) => btn !== lineBtn).forEach((oBtn) => setInactive(oBtn));
     lineBtn.style.border = activeState;
     ctx.strokeStyle = state.strokeColor;
     ctx.lineWidth = state.width;
     state.isLineActive = true;
+    appendEventListeners(mouseDownLine, mouseUpLine, mouseMoveLine);
+});
 
-    canvas.addEventListener('mousedown', mouseDownL);
-    canvas.addEventListener('mousemove', mouseMoveL);
-    canvas.addEventListener('mouseup', mouseupL);
-})
-
-
-let drawHistory = [];
-let drawHistoryIndex = -1;
+function addDrawHistory() {
+    drawHistory.push(ctx.getImageData(0, 0, canvas.width, canvas.height));
+    drawHistoryIndex++;
+}
 
 function undoLast() {
     if (drawHistoryIndex <= 0) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         drawHistory.pop();
-        drawHistoryIndex--;
+        drawHistoryIndex = -1;
     } else {
         ctx.putImageData(drawHistory[drawHistoryIndex - 1], 0, 0);
         drawHistory.pop();
@@ -389,3 +335,33 @@ function undoLast() {
 }
 
 undoBtn.addEventListener("click", undoLast);
+
+// Function to set tool button state inactive and remove their corresponding event listeners
+function setInactive(toolBtn) {
+    switch (toolBtn) {
+        case penBtn:
+            toolBtn.style.border = "none";
+            removeEventListeners(startPenPos, finishedPenPos, drawPen);
+        case eraserBtn:
+            toolBtn.style.border = "none";
+            state.strokeColor = colorInput.value;
+            //renable the color input.
+            colorInput.disabled = false;
+            colorInput.style.cursor = "default";
+            removeEventListeners(startPenPos, finishedPenPos, drawPen);
+        case squareBtn:
+            toolBtn.style.border = "none";
+            state.isSquareActive = false;
+            removeEventListeners(mouseDownSquare, mouseUpSquare, mouseMoveSquare);
+        case circleBtn:
+            toolBtn.style.border = "none";
+            state.isCircleActive = false;
+            removeEventListeners(mouseDownCircle, mouseUpCircle);
+        case lineBtn:
+            toolBtn.style.border = "none";
+            state.isLineActive = false;
+            removeEventListeners(mouseDownLine, mouseUpLine, mouseMoveLine);
+        default:
+            return;
+    }
+}

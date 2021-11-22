@@ -79,7 +79,7 @@ $white: white;
     }
 }
 
-.open {
+.close {
     transform: translateX(-50px);
 }
 
@@ -99,20 +99,6 @@ $white: white;
     }
 }
 
-.undo-redo-container {
-    position: absolute;
-    padding: 10px 15px;
-    right: 0;
-    top: 0;
-    button {
-        color: black;
-        background-color: $mintbean-dark-teal;
-        padding: 10px 14px;
-        border: 1px solid $mintbean-mint;
-        border-radius: 6px;
-    }
-}
-
 .save-img {
     width: 100%;
 }
@@ -124,4 +110,5 @@ canvas {
     z-index: -1;
     overflow: hidden;
     cursor: crosshair;
+    box-sizing: default;
 }

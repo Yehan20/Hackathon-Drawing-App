@@ -11,3 +11,13 @@ export function resizeCanvas(inMemCanvas, inMemCtx, canvas, ctx) {
         ctx.drawImage(inMemCanvas, 0, 0);
     }
 }
+
+export const appendEventListeners = (canvas, mousedown, mouseup, mousemove = null) => {
+    canvas.addEventListener("mousedown", mousedown);
+    canvas.addEventListener("mouseup", mouseup);
+    if (mousemove) {
+        canvas.addEventListener("mousemove", mousemove);
+    } else {
+        return;
+    }
+};
