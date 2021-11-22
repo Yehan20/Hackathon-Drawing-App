@@ -41,7 +41,7 @@
                             <a class="nav-link lead" href="#about">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link lead" href="#contact">Contact</a>
+                            <a class="nav-link lead" href="#developer">Developers</a>
                         </li>
                     </ul>
                     <a class="btn btn-primary" type="button" href="draw.html" target="_blank">Squiggle App</a>
@@ -49,15 +49,15 @@
             </div>
         </nav>
         <!-- Hero section start -->
-        <section class="hero py-3 bg-light text-dark" id="about">
+        <section class="hero py-3 bg-light text-light">
             <div class="container">
-                <div class="d-flex align-items-center mt-5 flex-column flex-md-row">
-                    <div class="col order-1 align-self-center me-3 text-center text-md-start">
-                        <h1 class="mb-4">Squiggle Drawing App</h1>
-                        <p>Become a digital Bob Ross! With our app, use your mouse or touchpad as your paintbrush!</p>
+                <div class="d-flex align-items-center justify-content-around mt-5 flex-column flex-md-row">
+                    <div class="col col-lg-5 order-1 align-self-center py-5 pt-lg-0 text-center text-md-start">
+                        <h1 class="pt-3"><img src="/media/images/Squiggle-Logo.svg" style="width: 150px" /> Drawing App</h1>
+                        <p class="pt-5">Become a digital Bob Ross! With our app, use your mouse or touchpad as your paintbrush!</p>
                         <a type="button" class="btn btn-primary btn-lg" href="draw.html">Start Drawing</a>
                     </div>
-                    <div class="col">
+                    <div class="col col-lg-6">
                         <img
                             src="https://static.wixstatic.com/media/0f4101_97a560fafd8945d7b3a8d6a312c13dce~mv2.gif"
                             alt="drawing smiley animation"
@@ -68,9 +68,11 @@
             </div>
         </section>
         <!-- Features section -->
-        <section class="py-5 mt-5 bg-dark text-light" id="feature">
+        <section class="py-5 bg-dark text-light" id="feature">
             <div class="container">
-                <h1 class="text-center mt-5">Squiggle Features</h1>
+                <h1 class="text-center mt-5">
+                    <span><img src="/media/images/Squiggle-Logo.svg" style="width: 150px" /></span> Features
+                </h1>
                 <div class="row mt-5 d-flex justify-content-center">
                     <div class="col-10 col-lg-4 col-md-6">
                         <div class="card mb-3 py-2 align-items-center bg-white text-dark">
@@ -173,21 +175,61 @@
                 </div>
             </div>
         </section>
-        <section class="bg-light py-5 my-3" id="about">
-            <div class="container text-center mt-5">
-                <h1>About</h1>
-                <div class="row"></div>
+        <!-- About Section -->
+        <section class="bg-light py-5 text-center" id="about">
+            <h1>About <img src="/media/images/Squiggle-Logo.svg" style="width: 150px" /></h1>
+            <div class="container-fluid text-center mt-5">
+                <div class="row d-flex align-items-center justify-content-around">
+                    <div class="col-12 col-lg-5">
+                        <img src="/media//images/mintbean.svg" style="width: 80%" />
+                        <h3 class="mb-5">Hiring Hackathon For Jr Web Devs</h3>
+                    </div>
+                    <div class="col-12 col-lg-5 text-lg-start">
+                        <p class="lead">This application was built as part of the Mintbean junior developer hackathon.</p>
+                        <p class="lead">The goal was to design a drawing application that allows users to become Bob Ross</p>
+                        <ul>
+                            <p class="lead"><strong>Technologies Used:</strong></p>
+                            <li class="lead">HTML5</li>
+                            <li class="lead">CSS3</li>
+                            <li class="lead">Bootstrap v5</li>
+                            <li class="lead">JavaScript</li>
+                            <li class="lead">Canvas API</li>
+                        </ul>
+                        <p class="lead">
+                            Link to the <a href="https://mintbean.io/meets/cfa4fa54-c706-4c51-a04f-671f6686f9fd/resources">Project Brief</a>
+                        </p>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- contact section -->
-        <section class="bg-white py-5 my-3" id="contact">
+        <!-- Developer section -->
+        <section class="bg-dark py-5 text-center text-light" id="developer">
+            <h1 class="mb-5"><img src="/media/images/Squiggle-Logo.svg" style="width: 150px" /> Developers</h1>
             <div class="container">
-                <h1 class="text-center mb-5">Contact Us</h1>
-                <div class="input-group mt-3 mx-auto max-width">
-                    <button class="btn bg-warning btn-lg w-100" type="button" id="button-addon2" data-bs-toggle="modal" data-bs-target="#question">
-                        Send Question
-                    </button>
+                <div class="row mt-5 pt-5 d-flex flex-column flex-md-row justify-content-center justify-content-md-between align-items-center">
+                    <div class="col-8 col-md-4">
+                        <div class="image-container">
+                            <img class="image-fluid" src="/media/images/Michael-profile.jpeg" alt="profile image of Michael" />
+                        </div>
+                    </div>
+                    <div class="col-md-8 pt-5 pt-md-0 text-center text-md-start">
+                        <h2>Michael Tran</h2>
+                        <h4><strong>Front End Web Developer Designer</strong></h4>
+                        <p>
+                            Aspiring full stack developer that started his journey back in April 2021. Curious individual exploring different
+                            technologies.
+                        </p>
+                        <h6><strong>Interests:</strong></h6>
+                        <p>Cooking <span>|</span> Gaming <span>|</span> Music <span>|</span> Dance</p>
+                        <h6><strong>Skills:</strong></h6>
+                        <p>
+                            HTML5 <span>|</span> CSS3 <span>|</span> Bootstrap <span>|</span> Material UI <span>|</span> JavaScript
+                            <span>|</span> jQuery <span>|</span> React <span>|</span> mySQL
+                        </p>
+                        <h6><strong>Technologies Interested In:</strong></h6>
+                        <p>Node.js <span>|</span> Express.js <span>|</span> MongoDB <span>|</span> Python <span>|</span> Django</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -202,37 +244,6 @@
                 </a>
             </div>
         </footer>
-
-        <!-- model here -->
-        <div class="modal fade" id="question" tabindex="-1" aria-labelledby="question" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Ask a Question</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p>Fill the Form</p>
-                        <div class="mb-3">
-                            <label class="form-label" for="name">Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="name" />
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label" for="email">Email</label>
-                            <input type="text" class="form-control" id="email" placeholder="email" />
-                        </div>
-                        <div class="mb-3">
-                            <label for="question" class="form-label">Question</label>
-                            <textarea name="" id="question" class="form-control" cols="30" rows="5" style="resize: none"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="button" class="btn btn-success">Send</button>
-                    </div>
-                </div>
-            </div>
-        </div>
 
         <script
             src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

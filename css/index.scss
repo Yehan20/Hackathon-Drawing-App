@@ -52,30 +52,55 @@ html {
         box-shadow: 0 0 0 0.25rem $mintbean-dark-teal;
     }
 }
-.hero p {
-    line-height: 1.7;
-    font-size: 1.2rem;
-    font-weight: 500;
+.hero {
+    background-image: url(/media/images/hero-bg.jpg);
+    object-fit: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
+    p {
+        line-height: 1.7;
+        font-size: 1.2rem;
+        font-weight: 500;
+    }
 }
 .card {
-    outline: none;
     border: none;
     border: 1px solid $mintbean-dark-teal;
-    cursor: pointer;
     min-height: 400px;
-    transition: box-shadow 250ms ease-in;
-}
-.card:hover {
-    box-shadow: 2px 2px 10px 1px $mintbean-dark-teal;
-    border: 1px outset $mintbean-dark-teal;
-    transform: translateY(-10px);
-    transition: transform 700ms ease;
-}
-.max-width {
     max-width: 400px;
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.19), 0 2px 2px rgba(255, 255, 255, 0.23);
+    transition: box-shadow 250ms ease-in;
+    &:hover {
+        box-shadow: 0 14px 28px rgba(0, 212, 169, 0.25), 0 5px 5px rgba(0, 212, 169, 0.22);
+        transform: translateY(-10px);
+        transition: transform 700ms ease;
+    }
 }
 
-.toggle-btn {
-    width: 50px;
-    height: 50px;
+strong {
+    color: $mintbean-dark-teal;
+}
+
+#about {
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+    a {
+        text-decoration: none;
+    }
+}
+
+#developer {
+    .image-container {
+        width: 100%;
+        img {
+            width: 100%;
+            object-fit: contain;
+            border-radius: 50%;
+        }
+    }
+    span {
+        color: $mintbean-dark-teal;
+    }
 }

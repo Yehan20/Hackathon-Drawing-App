@@ -47,6 +47,14 @@ html {
           box-shadow: 0 0 0 0.25rem #00d4a9;
 }
 
+.hero {
+  background-image: url(/media/images/hero-bg.jpg);
+  -o-object-fit: contain;
+     object-fit: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
 .hero p {
   line-height: 1.7;
   font-size: 1.2rem;
@@ -54,11 +62,12 @@ html {
 }
 
 .card {
-  outline: none;
   border: none;
   border: 1px solid #00d4a9;
-  cursor: pointer;
   min-height: 400px;
+  max-width: 400px;
+  -webkit-box-shadow: 0 10px 20px rgba(255, 255, 255, 0.19), 0 2px 2px rgba(255, 255, 255, 0.23);
+          box-shadow: 0 10px 20px rgba(255, 255, 255, 0.19), 0 2px 2px rgba(255, 255, 255, 0.23);
   -webkit-transition: -webkit-box-shadow 250ms ease-in;
   transition: -webkit-box-shadow 250ms ease-in;
   transition: box-shadow 250ms ease-in;
@@ -66,9 +75,8 @@ html {
 }
 
 .card:hover {
-  -webkit-box-shadow: 2px 2px 10px 1px #00d4a9;
-          box-shadow: 2px 2px 10px 1px #00d4a9;
-  border: 1px outset #00d4a9;
+  -webkit-box-shadow: 0 14px 28px rgba(0, 212, 169, 0.25), 0 5px 5px rgba(0, 212, 169, 0.22);
+          box-shadow: 0 14px 28px rgba(0, 212, 169, 0.25), 0 5px 5px rgba(0, 212, 169, 0.22);
   -webkit-transform: translateY(-10px);
           transform: translateY(-10px);
   -webkit-transition: -webkit-transform 700ms ease;
@@ -77,11 +85,30 @@ html {
   transition: transform 700ms ease, -webkit-transform 700ms ease;
 }
 
-.max-width {
-  max-width: 400px;
+strong {
+  color: #00d4a9;
 }
 
-.toggle-btn {
-  width: 50px;
-  height: 50px;
+#about ul {
+  list-style: none;
+  padding: 0;
+}
+
+#about a {
+  text-decoration: none;
+}
+
+#developer .image-container {
+  width: 100%;
+}
+
+#developer .image-container img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  border-radius: 50%;
+}
+
+#developer span {
+  color: #00d4a9;
 }
