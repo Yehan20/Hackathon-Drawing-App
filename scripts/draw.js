@@ -120,6 +120,38 @@ colorInput.onchange = () => {
     strokeSelectorsSvgs.forEach((selector) => selector.setAttribute("fill", state.strokeColor));
 };
 
+////
+// Function to set tool button state inactive and remove their corresponding event listeners
+////
+function setInactive(toolBtn) {
+    switch (toolBtn) {
+        case penBtn:
+            toolBtn.style.border = "none";
+            removeEventListeners(canvas, startPenPos, finishedPenPos, drawPen);
+        case eraserBtn:
+            toolBtn.style.border = "none";
+            state.strokeColor = colorInput.value;
+            //renable the color input.
+            colorInput.disabled = false;
+            colorInput.style.cursor = "default";
+            removeEventListeners(canvas, startPenPos, finishedPenPos, drawPen);
+        case squareBtn:
+            toolBtn.style.border = "none";
+            state.isSquareActive = false;
+            removeEventListeners(canvas, mouseDownSquare, mouseUpSquare, mouseMoveSquare);
+        case circleBtn:
+            toolBtn.style.border = "none";
+            state.isCircleActive = false;
+            removeEventListeners(canvas, mouseDownCircle, mouseUpCircle);
+        case lineBtn:
+            toolBtn.style.border = "none";
+            state.isLineActive = false;
+            removeEventListeners(canvas, mouseDownLine, mouseUpLine, mouseMoveLine);
+        default:
+            return;
+    }
+}
+
 /////
 //Button Event Listeners -
 /////
@@ -333,37 +365,5 @@ function undoLast() {
         ctx.putImageData(drawHistory[drawHistoryIndex - 1], 0, 0);
         drawHistory.pop();
         drawHistoryIndex--;
-    }
-}
-
-////
-// Function to set tool button state inactive and remove their corresponding event listeners
-////
-function setInactive(toolBtn) {
-    switch (toolBtn) {
-        case penBtn:
-            toolBtn.style.border = "none";
-            removeEventListeners(canvas, startPenPos, finishedPenPos, drawPen);
-        case eraserBtn:
-            toolBtn.style.border = "none";
-            state.strokeColor = colorInput.value;
-            //renable the color input.
-            colorInput.disabled = false;
-            colorInput.style.cursor = "default";
-            removeEventListeners(canvas, startPenPos, finishedPenPos, drawPen);
-        case squareBtn:
-            toolBtn.style.border = "none";
-            state.isSquareActive = false;
-            removeEventListeners(canvas, mouseDownSquare, mouseUpSquare, mouseMoveSquare);
-        case circleBtn:
-            toolBtn.style.border = "none";
-            state.isCircleActive = false;
-            removeEventListeners(canvas, mouseDownCircle, mouseUpCircle);
-        case lineBtn:
-            toolBtn.style.border = "none";
-            state.isLineActive = false;
-            removeEventListeners(canvas, mouseDownLine, mouseUpLine, mouseMoveLine);
-        default:
-            return;
     }
 }
