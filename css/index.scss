@@ -83,12 +83,19 @@ strong {
 }
 
 #about {
+    h3 {
+        color: $mintbean-dark-teal;
+    }
     ul {
         list-style: none;
         padding: 0;
     }
     a {
         text-decoration: none;
+        color: $mintbean-dark-teal;
+        &:hover {
+            color: $mintbean-mint;
+        }
     }
 }
 
