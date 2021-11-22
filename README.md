@@ -15,7 +15,7 @@ Build an app that lets people express their creativity in a visual format. You c
 
 ## How To Use
 
-### Directions
+### Option 1
 
 1. Visit the live site above.
 2. On the top navigation you can find a button labeled _Squiggle Now_.
@@ -23,24 +23,24 @@ Build an app that lets people express their creativity in a visual format. You c
 4. Once on the application, you will have your tool menu on the left. This can be toggled open or close.
 5. Now have fun and let your imagination run wild!
 
+### Option 2
+
+1. You can either clone the files of this repository or download the files to your local files.
+2. Utilize VScode extension [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by Ritwick Dey to open the draw.html file.
+3. Now have fun and let your imagination run wild!
+
 ### Features
 
 1. Free hand drawing.
 2. Draw shapes (Rectangles and Circles).
 3. Create straight lines.
 4. Erase parts of your drawing board and clear the entire board.
-5. Undo your last action.
+5. Choose from four different stroke widths/weight.
 6. Pick from a wide range of colors using HEX / RGB / HSL.
-7. Resize your canvas by resizing your browser window.
-8. Download your drawing to your computer.
-
-## Motivation
-
-### Michael
-
-My motivation in participating in this Hackathon was more for the experience working on a project with another developer. Greatful for the opportunity as it pushed me to learn new things and apply the knowledge I have gained so far in my developer journey.
-
-### Yehan
+7. Undo your last action.
+8. Pick from a wide range of colors using HEX / RGB / HSL.
+9. Resize your canvas by resizing your browser window.
+10. Download your drawing to your computer.
 
 ## Approach
 
@@ -48,10 +48,25 @@ Our team approached this by setting a list of features we wanted to accomplish a
 
 ## Contributors
 
+If you would like to know more about the application or have questions, please reach out to us through one of the following:
+
 ### Michael Tran
 
 -   [Github](https://github.com/michaelhtran120)
 -   [LinkedIn](https://www.linkedin.com/in/michaelhtran120/)
 -   [Portfolio](https://www.michaelhtran.com)
 
-### Yehan
+### Yehan Nilanga
+
+-   [Github](https://github.com/Yehan20)
+-   [LinkedIn](https://www.linkedin.com/in/yehan-nilanga-552b87161/)
+
+## Motivation & Reflection
+
+### Michael Tran
+
+My motivation in participating in this hackathon was more for the experience working on a project with another developer. Grateful for the opportunity as it pushed me to learn new things and apply the knowledge I have gained so far in my developer journey. The highlight for me was knowing that I can read and understand another developers logic in approaching a problem and their solution. This also gave me really good practice in refactoring to get both of our code working efficiently together.
+
+### Yehan Nilanga
+
+My main motivation in participating was to gain more development experience outside of my personal projects. The knowledge I gained on working on a team, using Github and and utilizing the Canvas API will be helpful for my future projects.
