@@ -1,0 +1,81 @@
+/* CSS RESET */
+* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    box-sizing: border-box;
+}
+
+$mintbean-dark-teal: rgb(0, 212, 169);
+$mintbean-mint: rgb(94, 244, 214);
+$white: white;
+$black: rgb(0, 23, 31);
+
+html {
+    scroll-behavior: smooth;
+}
+
+.navbar-brand {
+    margin: 0px 15px 0px 15px !important;
+    #logo {
+        width: 100px;
+        margin: 0;
+    }
+}
+.navbar-dark {
+    .navbar-nav {
+        .nav-link {
+            &:hover {
+                color: $mintbean-dark-teal;
+            }
+        }
+    }
+}
+
+.btn-primary {
+    background-color: $mintbean-dark-teal;
+    border: none;
+    color: $black;
+    &:hover {
+        background-color: $mintbean-mint;
+        color: $black;
+        border: none;
+    }
+    &:focus,
+    &:active {
+        border: none;
+        color: $black;
+        background-color: $mintbean-mint;
+        box-shadow: 0 0 0 0.25rem $mintbean-dark-teal;
+    }
+}
+.hero p {
+    line-height: 1.7;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+.card {
+    outline: none;
+    border: none;
+    border: 1px solid $mintbean-dark-teal;
+    cursor: pointer;
+    min-height: 400px;
+    transition: box-shadow 250ms ease-in;
+}
+.card:hover {
+    box-shadow: 2px 2px 10px 1px $mintbean-dark-teal;
+    border: 1px outset $mintbean-dark-teal;
+    transform: translateY(-10px);
+    transition: transform 700ms ease;
+}
+.max-width {
+    max-width: 400px;
+}
+
+.toggle-btn {
+    width: 50px;
+    height: 50px;
+}

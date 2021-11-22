@@ -12,44 +12,50 @@
             integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
             crossorigin="anonymous"
         />
-        <link rel="stylesheet" type="text/css" href="./css/home.css" />
+        <link rel="stylesheet" type="text/css" href="./css/index.css" />
         <title>Squiggle Drawing App</title>
     </head>
 
     <body>
         <!-- Nav Bar -->
-        <nav class="navbar navbar-expand-lg sticky-top py-3 navbar-light bg-light">
-            <div class="container">
-                <a class="navbar-brand h3 m-0" href="#">Name</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#toggleNav">
+        <nav class="navbar navbar-expand-lg sticky-top py-3 navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a class="navbar-brand h3 mx-5" href="#"><img id="logo" src="/media/images/Squiggle-Logo.svg" alt="Squiggle logo" /></a>
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbar"
+                    aria-controls="navbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="collapse navbar-collapse" id="toggleNav">
-                    <ul class="navbar-nav ms-auto mt-3 mt-lg-0">
+                <div class="collapse navbar-collapse" id="navbar">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link lead" href="#feature">Features</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link lead" href="#about">About</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link lead" href="#contact">Contact</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link lead" href="draw.html" target="_blank">Drawing App</a>
-                        </li>
                     </ul>
+                    <a class="btn btn-primary" type="button" href="draw.html" target="_blank">Squiggle App</a>
                 </div>
             </div>
         </nav>
-        <!-- show case section start -->
-        <section class="showcase py-3 text-dark" id="about">
+        <!-- Hero section start -->
+        <section class="hero py-3 bg-light text-dark" id="about">
             <div class="container">
                 <div class="d-flex align-items-center mt-5 flex-column flex-md-row">
-                    <div class="col align-self-center me-3 text-center text-md-start">
-                        <h2 class="text mb-4">Drawing App</h2>
-                        <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quod minima enim amet magni aperiam vitae, ab, error at
-                            voluptates, iste magnam debitis! Quidem voluptatum recusandae velit officia
-                        </p>
-                        <a href="" class="btn btn-success btn-lg">Start Drawing</a>
+                    <div class="col order-1 align-self-center me-3 text-center text-md-start">
+                        <h1 class="mb-4">Squiggle Drawing App</h1>
+                        <p>Become a digital Bob Ross! With our app, use your mouse or touchpad as your paintbrush!</p>
+                        <a type="button" class="btn btn-primary btn-lg" href="draw.html">Start Drawing</a>
                     </div>
                     <div class="col">
                         <img
@@ -61,65 +67,116 @@
                 </div>
             </div>
         </section>
-        <!-- services section -->
-        <section class="services py-5 mt-4 bg-light">
+        <!-- Features section -->
+        <section class="py-5 mt-5 bg-dark text-light" id="feature">
             <div class="container">
-                <h1 class="text-center">What You can do</h1>
-                <div class="row mt-5">
-                    <div class="col-12 col-md-4">
-                        <div class="card mb-3 py-2 align-items-center bg-white">
-                            <h3 class="text-center card-title mb-3">Sketching</h3>
-                            <img
-                                src="https://openbox9.com/site/wp-content/uploads/2015/08/1-sketching.png"
-                                class="img-fluid card-img-top w-50"
-                                style="height: 150px"
-                                alt=""
-                            />
+                <h1 class="text-center mt-5">Squiggle Features</h1>
+                <div class="row mt-5 d-flex justify-content-center">
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Free Form Drawing</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature1.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
                             <div class="card-body">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat autem nesciunt qui voluptatum cupiditate
-                                    doloribus a
+                                <p class="m-0">
+                                    With your mouse/touchpad, draw free form lines. Squiggle all over your canvas and create intricate patterns.
+                                    Infinite possibilities to explore or just draw hi.
                                 </p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 col-md-4">
-                        <div class="card mb-3 py-2 align-items-center">
-                            <h3 class="text-center card-title mb-3">Painting</h3>
-                            <img
-                                src="https://www.pinclipart.com/picdir/big/38-386439_paintbrush-svg-png-free-download-onlinewebfonts-com-paintbrush.png"
-                                class="img-fluid card-img-top w-50"
-                                style="height: 150px"
-                                alt=""
-                            />
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Rectangles & Circles</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature2.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
                             <div class="card-body">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat autem nesciunt qui voluptatum cupiditate
-                                    doloribus a
+                                <p class="m-0">
+                                    We understand you might be square (pun-intended) so we implemented a feature for you to click and drag to create
+                                    rectangles and circles on the canvas
                                 </p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="col-12 col-md-4">
-                        <div class="card mb-3 py-2 align-items-center">
-                            <h3 class="text-center card-title mb-3">Draw Shapes</h3>
-                            <img
-                                src="https://www.clipartmax.com/png/full/285-2857761_work-on-different-projects-circle-square-triangle-icon.png"
-                                class="img-fluid card-img-top w-50"
-                                style="height: 150px"
-                                alt=""
-                            />
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Different Strokes</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature5.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
                             <div class="card-body">
-                                <p>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Repellat autem nesciunt qui voluptatum cupiditate
-                                    doloribus a
+                                <p class="m-0">
+                                    We got different strokes for different folks. Choose from four different thickness for the tools at your
+                                    disposable.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Taste The Rainbow</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature6.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
+                            <div class="card-body">
+                                <p class="m-0">
+                                    We lied, you can't taste the rainbow, but you have infinite colors to choose from. You can definitely create a
+                                    rainbow, but please don't lick your screen hoping to taste the colors.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Mistakes Happen</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature4.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
+                            <div class="card-body">
+                                <p class="m-0">
+                                    Fear not! With our undo/eraser feature you can clean parts of you canvas or revert back to your last drawing
+                                    action. We save every action you do even if you accidentally clear your canvas.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Super Size Me</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature8.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
+                            <div class="card-body">
+                                <p class="m-0">
+                                    Just like McDonald's, we provided the option to work on a large canvas. Our canvas fits to the size of your
+                                    browser window. Any size you want! Well... as big as your browser can get.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-10 col-lg-4 col-md-6">
+                        <div class="card mb-3 py-2 align-items-center bg-white text-dark">
+                            <h3 class="text-center card-title mb-3">Memories To Share</h3>
+                            <div class="p-1">
+                                <img src="/media/gifs/Feature9.gif" class="img-fluid card-img-top" style="height: 150px" alt="" />
+                            </div>
+                            <div class="card-body">
+                                <p class="m-0">
+                                    Can you draw a cat likes our? If you can, go ahead and save and share it with us! Oh yeah, by the way did we tell
+                                    you we have a download feature?
                                 </p>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </section>
+        <section class="bg-light py-5 my-3" id="about">
+            <div class="container text-center mt-5">
+                <h1>About</h1>
+                <div class="row"></div>
             </div>
         </section>
 
