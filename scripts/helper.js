@@ -12,6 +12,16 @@ export function resizeCanvas(inMemCanvas, inMemCtx, canvas, ctx) {
     }
 }
 
+// Function to add group of event listeners.
+export const removeEventListeners = (canvas, mousedown, mouseup, mousemove = null) => {
+    canvas.removeEventListener("mousedown", mousedown);
+    canvas.removeEventListener("mouseup", mouseup);
+    if (mousemove) {
+        canvas.removeEventListener("mousemove", mousemove);
+    } else {
+        return;
+    }
+};
 export const appendEventListeners = (canvas, mousedown, mouseup, mousemove = null) => {
     canvas.addEventListener("mousedown", mousedown);
     canvas.addEventListener("mouseup", mouseup);
