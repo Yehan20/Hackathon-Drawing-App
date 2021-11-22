@@ -147,6 +147,7 @@ function setInactive(toolBtn) {
             toolBtn.style.border = "none";
             state.isLineActive = false;
             removeEventListeners(canvas, mouseDownLine, mouseUpLine, mouseMoveLine);
+
         default:
             return;
     }
