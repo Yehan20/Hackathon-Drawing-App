@@ -26,6 +26,7 @@ html {
     }
 }
 .navbar-dark {
+    border-bottom: 1px solid $mintbean-dark-teal;
     .navbar-nav {
         .nav-link {
             &:hover {

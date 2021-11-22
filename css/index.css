@@ -23,6 +23,10 @@ html {
   margin: 0;
 }
 
+.navbar-dark {
+  border-bottom: 1px solid #00d4a9;
+}
+
 .navbar-dark .navbar-nav .nav-link:hover {
   color: #00d4a9;
 }
