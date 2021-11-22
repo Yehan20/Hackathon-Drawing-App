@@ -50,8 +50,8 @@ Our team approached this by setting a list of features we wanted to accomplish a
 
 ### Michael Tran
 
-[Github](https://github.com/michaelhtran120)
-[LinkedIn](https://www.linkedin.com/in/michaelhtran120/)
-[Portfolio](https://www.michaelhtran.com)
+-   [Github](https://github.com/michaelhtran120)
+-   [LinkedIn](https://www.linkedin.com/in/michaelhtran120/)
+-   [Portfolio](https://www.michaelhtran.com)
 
 ### Yehan
