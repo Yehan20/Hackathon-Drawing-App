@@ -23,28 +23,33 @@ Build an app that lets people express their creativity in a visual format. You c
 2. On the top navigation you can find a button labeled _Squiggle Now_.
 3. You can also find other call to action buttons to access the drawing app
 4. Once on the application, you will have your tool menu on the left. This can be toggled open or close.
-5. Now have fun and let your imagination run wild!
+5. Now have fun and let your imagination run wild! (Use your mouse or touchpad, your cursor is your pen/pencil/brush)
 
 ### Option 2
 
 1. You can either clone the files of this repository or download the files to your local files.
 2. Utilize VScode extension [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by Ritwick Dey to open the draw.html file.
-3. Now have fun and let your imagination run wild!
+3. Now have fun and let your imagination run wild! (Use your mouse or touchpad, your cursor is your pen/pencil/brush)
 
 ### Features
 
 1. Free hand drawing.  
    ![](./media/gifs/Feature1.gif)
-
-2. Draw shapes (Rectangles and Circles).
-3. Create straight lines.
+2. Draw shapes (Rectangles and Circles).  
+   ![](./media/gifs/Feature2.gif)
+3. Create straight lines.  
+   ![](./media/gifs/Feature3.gif)
 4. Erase parts of your drawing board and clear the entire board.
+   ![](./media/gifs/Feature4.gif)
 5. Choose from four different stroke widths/weight.
+   ![](./media/gifs/Feature5.gif)
 6. Pick from a wide range of colors using HEX / RGB / HSL.
+   ![](./media/gifs/Feature6.gif)
 7. Undo your last action.
-8. Pick from a wide range of colors using HEX / RGB / HSL.
-9. Resize your canvas by resizing your browser window.
-10. Download your drawing to your computer.
+   ![](./media/gifs/Feature7.gif)
+8. Resize your canvas by resizing your browser window.
+   ![](./media/gifs/Feature8.gif)
+9. Download your drawing to your computer.
 
 ## Approach
 
