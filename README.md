@@ -50,6 +50,7 @@ Build an app that lets people express their creativity in a visual format. You c
 8. Resize your canvas by resizing your browser window.
    ![](./media/gifs/Feature8.gif)
 9. Download your drawing to your computer.
+   ![](./media/gifs/Feature9.gif)
 
 ## Approach
 
