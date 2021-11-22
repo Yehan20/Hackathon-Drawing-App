@@ -1,8 +1,10 @@
-# Hackerthron-Drawing-App
+# Hackathon-Drawing-App
 
-# Mintbean.io Junior Developer Hackathon
+## Mintbean.io Junior Developer Hackathon
 
 ## Challenge Introduction
+
+[Hackathon Brief](https://mintbean.io/meets/cfa4fa54-c706-4c51-a04f-671f6686f9fd/resources)
 
 Build an app that lets people express their creativity in a visual format. You can build ANY application you'd like. Whether it's a blank canvas that you can paint on, a photo-editing app, a shared white board -- as long as it fulfills one OR both of the following requirements:
 
@@ -32,6 +34,7 @@ Build an app that lets people express their creativity in a visual format. You c
 ### Features
 
 1. Free hand drawing.
+   ![](http://i.imgur.com/OUkLi.gif)
 2. Draw shapes (Rectangles and Circles).
 3. Create straight lines.
 4. Erase parts of your drawing board and clear the entire board.
@@ -44,7 +47,7 @@ Build an app that lets people express their creativity in a visual format. You c
 
 ## Approach
 
-Our team approached this by setting a list of features we wanted to accomplish and working on each item one by one. We worked in one single repository and continously branched from our main when building features out. Once completed, we would add, commit and push on to the branch we were working on and review each others code prior to merge. Although we were unable to fully reach our desired goal, we are happy with the final product as we were able to implement most of our planned features.
+We are both front-end developers at the time of this hackathon. Our team approached this by setting a list of features we wanted to accomplish and working on each item one by one. We worked in one single repository and continously branched from our main when building features out. Once completed, we would add, commit and push on to the branch we were working on and review each others code prior to merge. Although we were unable to fully reach our desired goal, we are happy with the final product as we were able to implement most of our planned features.
 
 ## Contributors
 
