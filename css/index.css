@@ -112,3 +112,17 @@ strong {
 #developer span {
   color: #00d4a9;
 }
+
+#developer a {
+  padding: 0px 10px 0px 10px;
+}
+
+#developer a .bi {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+#developer a .bi:hover {
+  color: #00d4a9;
+}

@@ -103,4 +103,15 @@ strong {
     span {
         color: $mintbean-dark-teal;
     }
+    a {
+        padding: 0px 10px 0px 10px;
+        .bi {
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            &:hover {
+                color: $mintbean-dark-teal;
+            }
+        }
+    }
 }
