@@ -34,7 +34,7 @@ Build an app that lets people express their creativity in a visual format. You c
 ### Features
 
 1. Free hand drawing.  
-   ![](http://i.imgur.com/OUkLi.gif)
+   ![](./media/gifs/Feature1.gif)
 
 2. Draw shapes (Rectangles and Circles).
 3. Create straight lines.
