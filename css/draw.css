@@ -69,6 +69,7 @@
   width: 50px !important;
   height: 50px !important;
   padding: 0;
+  border: 2px outset #00d4a9;
 }
 
 .draw-row .draw-column #clear-btn {
