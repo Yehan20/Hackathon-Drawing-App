@@ -27,6 +27,8 @@ Build an app that lets people express their creativity in a visual format. You c
 
 ### Option 2
 
+Unfortunately we are not mobile friendly at this time. Our application works on desktop browsers only.
+
 1. You can either clone the files of this repository or download the files to your local files.
 2. Utilize VScode extension [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by Ritwick Dey to open the draw.html file.
 3. Now have fun and let your imagination run wild! (Use your mouse or touchpad, your cursor is your pen/pencil/brush)
