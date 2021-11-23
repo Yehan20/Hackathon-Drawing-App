@@ -54,6 +54,11 @@ $white: white;
                 margin: 5px 8px;
             }
         }
+        label {
+            display: block;
+            margin: 0 auto;
+            text-align: center;
+        }
 
         input[type="color" i] {
             width: 50px !important;

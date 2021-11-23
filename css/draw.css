@@ -59,6 +59,12 @@
   margin: 5px 8px;
 }
 
+.draw-row .draw-column label {
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .draw-row .draw-column input[type="color" i] {
   width: 50px !important;
   height: 50px !important;

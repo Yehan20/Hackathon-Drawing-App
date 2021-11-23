@@ -15,7 +15,7 @@ Build an app that lets people express their creativity in a visual format. You c
 
 [Live Site](https://squiggle-drawing-app.netlify.app/)
 
-## How To Use
+## How To Use / Developer Instructions
 
 ### Option 1
 
