@@ -34,6 +34,13 @@ Unfortunately we are not mobile friendly at this time. Our application works on 
     - Must utilize the live server extension as opening the HTML directly to your browser encounters an issue loading the associated Javascript file.
 3. Now have fun and let your imagination run wild! (Use your mouse or touchpad, your cursor is your pen/pencil/brush)
 
+### Developer Instructions
+
+1. VScode Extensions used
+    - [Live SASS compiler](https://marketplace.visualstudio.com/items?itemName=ritwickdey.live-sass) by Ritwick Dey for compiling SASS/SCSS to CSS.
+    - [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) by Ritwick Dey for live reloading during development.
+        - Note that this is required to get the application running in development. Will encounter CORS issue when opening HTML file directly in browser.
+
 ### Features
 
 1. Free hand drawing.  
